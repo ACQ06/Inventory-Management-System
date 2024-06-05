@@ -10,9 +10,8 @@ public class ProductBatch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
+    @Column
+    private int productId;
     @Column(nullable = false)
     private Date expiration;
     @Column(nullable = false)

@@ -34,9 +34,9 @@ public class SalesOrderServiceImpl implements SalesOrderService {
     @Override
     public SalesOrder updateSalesOrder(SalesOrder salesOrder){
         SalesOrder existingSalesOrder = salesOrderRepository.findById(salesOrder.getId()).get();
-        existingSalesOrder.setCustomer(salesOrder.getCustomer());
-        existingSalesOrder.setManager(salesOrder.getManager());
-        existingSalesOrder.setProduct(salesOrder.getProduct());
+        existingSalesOrder.setCustomerId(salesOrder.getCustomerId());
+        existingSalesOrder.setManagerId(salesOrder.getManagerId());
+        existingSalesOrder.setProductID(salesOrder.getProductID());
         existingSalesOrder.setProductBatch(salesOrder.getProductBatch());
         existingSalesOrder.setQuantity(salesOrder.getQuantity());
         existingSalesOrder.setDate(salesOrder.getDate());

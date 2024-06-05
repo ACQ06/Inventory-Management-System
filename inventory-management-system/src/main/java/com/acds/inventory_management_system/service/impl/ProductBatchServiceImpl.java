@@ -34,7 +34,7 @@ public class ProductBatchServiceImpl implements ProductBatchService{
     @Override
     public ProductBatch updateProductBatch(ProductBatch productBatch){
         ProductBatch existingProductBatch = productBatchRepository.findById(productBatch.getId()).get();
-        existingProductBatch.setProduct(productBatch.getProduct());
+        existingProductBatch.setProductId(productBatch.getProductId());
         existingProductBatch.setExpiration(productBatch.getExpiration());
         existingProductBatch.setQuantity(productBatch.getQuantity());
 

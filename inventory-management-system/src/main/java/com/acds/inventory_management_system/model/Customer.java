@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "customer")
+@Table(name = "Users")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,6 +14,5 @@ public class Customer {
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)
-    private short status;
-    private String comment;
+    private short ROLE = 3;
 }

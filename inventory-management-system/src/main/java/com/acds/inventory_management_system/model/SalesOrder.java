@@ -10,18 +10,14 @@ public class SalesOrder {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @ManyToOne
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
-    @ManyToOne
-    @JoinColumn(name = "manager_id", nullable = false)
-    private InventoryManager manager;
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
-    @ManyToOne
-    @JoinColumn(name = "batch_id", nullable = false)
-    private ProductBatch productBatch;
+    @Column(nullable = false)
+    private int customerId;
+    @Column(nullable = false)
+    private int managerId;
+    @Column(nullable = false)
+    private int productID;
+    @Column(nullable = false)
+    private int productBatch;
     @Column(nullable = false)
     private int quantity;
     @Column(nullable = false)
