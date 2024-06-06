@@ -1,12 +1,14 @@
 package com.acds.inventory_management_system.service.impl;
 
 import com.acds.inventory_management_system.model.Admin;
+import com.acds.inventory_management_system.model.InventoryManager;
 import com.acds.inventory_management_system.repository.AdminRepository;
 import com.acds.inventory_management_system.service.AdminService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +28,11 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public List<Admin> getAllAdmins(){
-        return adminRepository.findAll();
+        List<Admin> filteredAdmins = adminRepository.findAll().stream()
+                .filter(admin -> admin.getROLE() == 1)
+                .collect(Collectors.toList());
+
+        return filteredAdmins;
     }
 
     @Override

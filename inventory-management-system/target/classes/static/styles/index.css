@@ -1,104 +1,283 @@
-/* Importing Google Font "Inter" */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
-/* Applying universal styles to all elements */
-* {
-    font-family: "Inter", sans-serif;
-    padding: 0px;
-    margin: 0px;
-    box-sizing: border-box;
+/* COLOR VARIABLES */
+:root {
+    --lm_darkblue: #03045E;
+    --lm_blue: #0077B6;
+    --lm_lblue: #00B4D8;
+    --lm_vlblue: #90E0EF;
+    --lm_white: #CAF0F8;
+
+    --dm-darkblue: #060616;
+    --white: #FBFEFE;
 }
 
-/* Defining the body layout */
-body {
-    height: 100vh;
-    display: grid;
-    grid-template-columns: calc(12vw + 30px) 1fr;
-    grid-template-areas: "side main";
+html{
+    font-family: Inter, sans-serif;
 }
 
-/* Styling the sidebar */
-.sidebar {
-    background-color: #0077b6;
-    font-size: 1vw;
+body{
+    background-image: linear-gradient(45deg,  #0077B6 , #90E0EF);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+    margin: 0;
 }
 
-/* Styling the unordered list in the sidebar */
-.sidebar ul {
-    list-style-type: none;
-    display: block;
+.sec1{
+    margin: 0;
+    padding: 0;
 }
 
-/* Styling the list items in the sidebar */
-.sidebar li {
-    margin-bottom: 2vh;
-    align-items: center;
-    border-radius: 0.5rem;
-}
-
-/* Adding hover effect on list items */
-.sidebar li :hover {
-    color: #10123e;
-    background-color: #fbfefe;
-    border-radius: 0.5rem;
-}
-
-/* Styling the navigation section in the sidebar */
-.sidebar .nav-section {
+.logo{
     display: flex;
-    flex-direction: column;
-    height: 50%;
-    justify-content: flex-end;
-    padding: 1rem;
-}
-
-/* Styling the links in the sidebar */
-.sidebar .sidebar-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #fbfefe;
-    padding: 0.75rem 0.5rem;
-}
-
-/* Styling the user section in the sidebar */
-.user {
-    display: flex;
-    color: #fbfefe;
-    align-items: center;
-    background-color: #005989;
-    padding: 20px;
-    flex-direction: row-reverse;
+    margin: 4rem 6rem;
     cursor: pointer;
 }
 
-/* Styling the user details in the sidebar */
-.user .user-details {
-    margin: 0px 10px;
-    width: 80%;
+.logo img{
+    width: 10vw;
 }
 
-/* Styling the user role text */
-.user-details .user-role {
-    font-size: 0.8vw;
-}
-
-/* Styling the user logout section */
-.user-logout {
-    height: 50%;
+.text{
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
+    margin: 6rem;
 }
 
-/* Styling the Material Symbols */
-.material-symbols-outlined {
-    margin-right: 1rem;
+.text h2, h1, p, h3, a{
+    color: var(--lm_white);
+    margin: 0;
+    padding: 0 0 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text h2{
+    font-size: 2vw;
+    font-weight: 600;
+}
+
+.text h1{
+    font-size: 4vw;
+    width: 50vw;
+    padding: 0 0 1.5rem;
+    font-weight: 700;
+}
+
+.text h3, .su-right h3{
+    font-size: 1vw;
+    font-weight: 400;
+}
+
+.text h3 a:hover, .su-right h3 a:hover{
+    color: var(--lm_darkblue);
+}
+
+.text p{
+    font-size: 1.256vw;
+    width: 30vw;
+}
+
+.button-login {
+    width: 15vw;
+    background-color: var(--lm_darkblue);
+    border: none;
+    border-radius: 1rem;
+    color: white;
+    margin: 2rem 0;
+    padding: 1vw 2vw;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1.5vw;
+    cursor: pointer;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.2vw;
+}
+
+.landing-signup{
+    margin: 2rem 0rem 1rem 0rem;
+}
+
+.button-login:hover{
+    background-color: rgb(2, 2, 62);
+}
+
+.icon{
+    position: absolute;
+    width: 40vw;
+    top: 15rem;
+    right: 10vh;
+}
+
+/* SIGN UP AND LOGIN CSS */
+
+.su-body{
+    background-image: none;
+    background-color: var(--lm_blue);
+}
+
+.su-sec{
+    display: flex;
+    flex-direction: row;
+}
+
+.su-left, .su-right{
+    margin: 0;
+    padding: 0;
+}
+
+.su-left{ width: 60%; }
+.su-right{
+     width: 35%; 
+     background-color:rgba(202, 240, 248, 0.3);
+     padding: 8rem 6rem;
+    }
+
+.div-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.div-icon img{
+    width: 40vw;
+}
+
+.su-right h1, P{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.su-right h1{
+    font-size: 2vw;
+    padding: 0rem;
+    letter-spacing: 0.2rem;
+}
+
+.su-right p{
+    padding-top: 1rem;
     font-size: 1vw;
 }
 
-/* Styling the main content area */
-.main-content {
-    background-color: #e6f1f8;
-    font-size: 2vw;
-    padding: 20px;
+.su-right h3{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10vw;
 }
+
+.div-userpass{
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+}
+
+.div-userpass h2{
+    color:var(--lm_darkblue);
+    font-size: 1.2vw;
+    font-weight: 700;
+    margin: 2rem 0 0.5rem 0;
+}
+
+input[type = text], input[type = password]{
+    width: 100%;
+    padding: 1.2vw;
+    margin: 0.5vw 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    resize: none;
+    color:  var(--dm-darkblue);
+    font-family: 'Inter', sans-serif;
+    font-size: 1vw;
+    letter-spacing: 0.05vw;
+    border-radius: 1rem;
+}
+
+input[ type = text ]::placeholder, textarea[type = text]::placeholder {
+    color:  rgba(6, 6, 22, 0.5);
+}
+
+.su-width{
+    margin: 5rem 0 1rem 0;
+    width: 100%;
+}
+
+/* checkmark */
+.container {
+    display: block;
+    position: relative;
+    width: 8vw;
+    padding: 0.2vw 0 0 2vw;
+    cursor: pointer;
+    font-size: 0.9vw;
+    color:var(--lm_white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .container input {
+   display: none;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 1.5vw;
+    width: 1.5vw;
+    background-color: var(--white);
+    border: solid var(--lm_blue);
+    border-width: 0.08rem;
+  }
+  
+  .container:hover input ~ .checkmark {
+    background-color: #CCCCCC;
+  }
+  
+  .container input:checked ~ .checkmark {
+    background-color: #BBBBBB;
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .container .checkmark:after {
+    left: 0.55vw;
+    top: 0.2vw;
+    width: 0.3vw;
+    height: 0.7vw;
+    border: solid var(--lm_darkblue);
+    border-width: 0 0.2rem 0.2rem 0;
+    transform: rotate(45deg);
+  }
+
+  .div-showpass{
+    display: flex;
+    flex-direction: row-reverse;
+  }
+
+  /* ADDITIONAL FOR SIGN UP CSS */
+  .signup-div{
+    padding: 4rem 6rem;
+  }
+
+  .signup-details{
+    padding-top: 1rem;
+  }
+
+  .signup-details h2{
+    margin: 1.5rem 0 0.5rem 0;
+}
+
+  .sign-up-btn{
+    margin: 3rem 0 1rem 0;
+  }

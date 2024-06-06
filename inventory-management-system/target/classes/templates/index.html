@@ -1,91 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- Link to external stylesheet -->
-        <link rel="stylesheet" type="text/css" href="../static/styles/index.css" />
-        <!-- Link to Google Fonts for Material Symbols -->
-        <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-        />
-        <title>Template</title>
-    </head>
-    <body>
-        <!-- Sidebar section -->
-        <section class="sidebar">
-            <div class="nav-section">
-                <ul>
-                    <li>
-                        <a href="index.html" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                dashboard
-                            </span>
-                            <span class="nav-item">Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="inventory.html" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                inventory_2
-                            </span>
-                            <span class="nav-item">Inventory</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                shopping_cart
-                            </span>
-                            <span class="nav-item">Sale</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="purchase.html" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                receipt
-                            </span>
-                            <span class="nav-item">Purchase</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                groups
-                            </span>
-                            <span class="nav-item">Supplier</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                settings
-                            </span>
-                            <span class="nav-item">Settings</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <!-- User logout section -->
-            <div class="user-logout">
-                <div class="user">
-                    <span class="material-symbols-outlined logout-icon">
-                        move_item
-                    </span>
+    <!-- IMPORT CSS File -->
+    <link rel='stylesheet' th:href="@{/styles/index.css}">
 
-                    <div class="user-details">
-                        <div>
-                            <p class="user-name">Name</p>
-                            <p class="user-role">Role</p>
-                        </div>
-                    </div>
-                    <span class="material-symbols-outlined" href> person </span>
-                </div>
-            </div>
-        </section>
-        <!-- Main content area -->
-        <main class="main-content">Dashboard</main>
-    </body>
+    <!-- Google API Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+    <title>IMS</title>
+</head>
+<body>
+    <section class="sec1">
+        <div class="logo">
+            <img th:src="@{/images/logo.png}">
+        </div>
+        <div class="text">
+            <h2>WELCOME</h2>
+            <h1>Inventory Management System</h1>
+            <p>In collaboration with Project Management, Software Engineering, and Programming Language.</p>
+            <button class="button-login landing-signup" id="landingLogin" >Sign Up</button>
+            <h3>Already have an account?
+                <a href="/login">Login Here</a>
+            </h3>
+        </div>
+        <img class="icon" th:src="@{/images/img-landing.png}">
+    </section>
+
+    <script>
+        document.getElementById("landingLogin").addEventListener("click", function() {
+            window.location.href = "/register";
+        });
+    </script>
+</body>
 </html>
+
+

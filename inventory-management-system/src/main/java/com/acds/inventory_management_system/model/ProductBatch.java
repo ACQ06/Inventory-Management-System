@@ -11,7 +11,7 @@ public class ProductBatch {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column
-    private int productId;
+    private long productId;
     @Column(nullable = false)
     private Date expiration;
     @Column(nullable = false)

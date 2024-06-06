@@ -11,22 +11,30 @@ public class WebController {
     public String index(){
         return "index";
     }
-
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+    @RequestMapping("/register")
+    public String register(){
+        return "register";
+    }
+    @RequestMapping("/userManagement")
+    public String userManagement(){
+        return "user-management";
+    }
     @RequestMapping(value="/dashboard")
     public String dashboard(){
         return "dashboard";
     }
-
     @RequestMapping(value="/inventory")
     public String inventory(){
         return "inventory";
     }
-
     @RequestMapping(value="/sale")
     public String sale(){
         return "sale";
     }
-
     @RequestMapping(value="/purchase")
     public String purchase(){
         return "purchase";
