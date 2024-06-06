@@ -14,7 +14,7 @@ for (const option of document.querySelectorAll(".custom-option")) {
             this.parentNode.querySelector('.custom-option.selected').classList.remove('selected');
             this.classList.add('selected');
             this.closest('.select').querySelector('.select__trigger span a').textContent = this.textContent;
-            userType.textContent = `${option.textContent} List`;
+            userListType.textContent = `${option.textContent} List`;
 
             if (option.textContent === "Customer") {
                 clearTable();
@@ -45,7 +45,7 @@ for (const option of document.querySelectorAll(".custom-option")) {
 clearTable();
 populateAdmin();
 
-var userType = document.querySelector('.upper-table h1');
+var userListType = document.querySelector('.upper-table h1');
 
 var tableBody = document.querySelector('tbody');
 var rows = tableBody.querySelectorAll('tr');
