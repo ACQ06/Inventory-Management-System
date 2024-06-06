@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +27,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<Customer> getAllCustomers(){
-        return customerRepository.findAll();
+        List<Customer> filteredCustomers = customerRepository.findAll().stream()
+                .filter(customer -> customer.getROLE() == 3)
+                .collect(Collectors.toList());
+
+        return filteredCustomers;
     }
 
     @Override

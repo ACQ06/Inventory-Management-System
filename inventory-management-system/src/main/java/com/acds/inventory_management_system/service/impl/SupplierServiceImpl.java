@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -26,7 +27,11 @@ public class SupplierServiceImpl implements SupplierService{
 
     @Override
     public List<Supplier> getAllSuppliers(){
-        return supplierRepository.findAll();
+        List<Supplier> filteredSupplier = supplierRepository.findAll().stream()
+                .filter(supplier -> supplier.getROLE() == 4)
+                .collect(Collectors.toList());
+
+        return filteredSupplier;
     }
 
     @Override
