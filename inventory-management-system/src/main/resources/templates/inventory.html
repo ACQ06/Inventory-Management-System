@@ -97,7 +97,7 @@
                     </div>
                 </div>
                 <div class="table-container">
-                    <table class="inventory-table">
+                    <table class="inventory-table" id="stocks">
                         <thead>
                             <tr>
                                 <th>Product</th>
@@ -107,44 +107,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>Product 1</td>
-                                <td>10</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <td>Product 2</td>
-                                <td>5</td>
-                                <td>Low Stock</td>
-                            </tr>
-                            <tr>
-                                <td>Product 3</td>
-                                <td>8</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <td>Product 4</td>
-                                <td>12</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <td>Product 5</td>
-                                <td>3</td>
-                                <td>Low Stock</td>
-                            </tr>
-                            <tr>
-                                <td>Product 6</td>
-                                <td>7</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <td>Product 7</td>
-                                <td>9</td>
-                                <td>Available</td>
-                            </tr>
-                            <tr>
-                                <td>Product 8</td>
-                                <td>6</td>
-                                <td>Low Stock</td>
+                                <!-- autopopulate data -->
                             </tr>
                         </tbody>
                     </table>
@@ -223,82 +186,29 @@
                     <h6>Product List</h6>
                     <div class="button-group">
                         <input type="text" id="productListSearch" class="hidden" placeholder="Search Product List..."
-                            onkeyup="searchProductList('productListSearch', 'inventory-table2')">
+                               onkeyup="searchProductList('productListSearch', 'inventory-table2')">
                         <button class="material-icons button-icon"
-                            onclick="toggleSearchInput('productListSearch')">search</button>
+                                onclick="toggleSearchInput('productListSearch')">search</button>
                         <button class="material-icons button-icon" onclick="openModal('productModal')">add</button>
                         <button class="btn" id="ProductListEditButton" onclick="enableProductEditing()">Edit</button>
                     </div>
                 </div>
                 <div class="table-container2">
-                    <table class="inventory-table2">
+                    <table class="inventory-table2" id="products">
                         <thead>
-                            <tr>
-                                <th>Product ID</th>
-                                <th>Product Name</th>
-                                <th>Supplier ID</th>
-                                <th>Price</th>
-                                <th>Quantity</th>
-                                <th class="action-header hidden">Actions</th>
-                            </tr>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Supplier ID</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th class="action-header hidden">Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>1234</td>
-                                <td>A1234</td>
-                                <td>1234A</td>
-                                <td>189</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>4566</td>
-                                <td>A4567</td>
-                                <td>4566B</td>
-                                <td>5000</td>
-                                <td>1000</td>
-                            </tr>
-                            <tr>
-                                <td>1246</td>
-                                <td>B1246</td>
-                                <td>1246B</td>
-                                <td>8900</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>7894</td>
-                                <td>C7894</td>
-                                <td>7894C</td>
-                                <td>12000</td>
-                                <td>20</td>
-                            </tr>
-                            <tr>
-                                <td>1234</td>
-                                <td>A1234</td>
-                                <td>1234A</td>
-                                <td>189</td>
-                                <td>200</td>
-                            </tr>
-                            <tr>
-                                <td>4566</td>
-                                <td>A4567</td>
-                                <td>4566B</td>
-                                <td>5000</td>
-                                <td>1000</td>
-                            </tr>
-                            <tr>
-                                <td>1246</td>
-                                <td>B1246</td>
-                                <td>1246B</td>
-                                <td>8900</td>
-                                <td>100</td>
-                            </tr>
-                            <tr>
-                                <td>7894</td>
-                                <td>C7894</td>
-                                <td>7894C</td>
-                                <td>12000</td>
-                                <td>20</td>
-                            </tr>
+                        <tr>
+                            <!-- autopopulate data -->
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -310,8 +220,6 @@
                     <span class="close" onclick="closeModal('productModal')">&times;</span>
                     <h2>Add Product</h2>
                     <form onsubmit="event.preventDefault(); addProduct();">
-                        <label for="prodID">Product ID:</label>
-                        <input type="text" id="prodID" name="prodID" required>
                         <label for="prodName">Product Name:</label>
                         <input type="text" id="prodName" name="prodName" required>
                         <label for="supplierID">Supplier ID:</label>
@@ -324,6 +232,7 @@
                     </form>
                 </div>
             </div>
+
 
             <script>
 
@@ -476,9 +385,9 @@
                     <h6>Batch Tracking</h6>
                     <div class="button-group">
                         <input type="text" id="batchSearch" class="hidden" placeholder="Search Batch..."
-                            onkeyup="searchTable('batchSearch', 'inventory-table3')">
+                               onkeyup="searchTable('batchSearch', 'inventory-table3')">
                         <button class="material-icons button-icon"
-                            onclick="toggleSearchInput('batchSearch')">search</button>
+                                onclick="toggleSearchInput('batchSearch')">search</button>
                         <button class="material-icons button-icon" onclick="openModal('batchModal')">add</button>
                         <button class="btn" id="BatchTrackEditButton" onclick="enableBatchEditing()">Edit</button>
                         <button class="filter-button" onclick="sortTableByExpiration()">
@@ -490,153 +399,46 @@
                 </div>
 
                 <div class="table-container3">
-                    <table class="inventory-table3">
+                    <table class="inventory-table3" id="productBatches">
                         <thead>
-                            <tr>
-                                <th>Batch ID</th>
-                                <th>Product ID</th>
-                                <th>Product Name</th>
-                                <th>Quantity</th>
-                                <th>Expiration Date</th>
-                                <th class="action-header hidden">Actions</th>
-                            </tr>
+                        <tr>
+                            <th>Batch ID</th>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Expiration Date</th>
+                            <th class="action-header hidden">Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>04-13-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product B</td>
-                                <td>12</td>
-                                <td>04-20-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product C</td>
-                                <td>11</td>
-                                <td>04-18-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product D</td>
-                                <td>15</td>
-                                <td>04-29-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>05-16-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>02-13-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>01-13-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>12-13-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>11-13-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>04-13-2026</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>04-13-2024</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>04-13-2023</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>04-17-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Product A</td>
-                                <td>10</td>
-                                <td>08-13-2025</td>
-                            </tr>
-                            <tr>
-                                <td>A123456</td>
-                                <td>123123123123123</td>
-                                <td>Tapos na</td>
-                                <td>10</td>
-                                <td>02-21-2002</td>
-                            </tr>
+                        <tr>
+                            <!-- autopopulate data -->
+                        </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
 
-        </div>
-    </main>
+            <div id="batchModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('batchModal')">&times;</span>
+                    <h2>Add Batch</h2>
+                    <form onsubmit="event.preventDefault(); addBatch(); addProduct();">
+                        <label for="productID">Product ID:</label>
+                        <input type="text" id="productID" name="productID" required>
+                        <label for="productName">Product Name:</label>
+                        <input type="text" id="productName" name="productName" required>
+                        <label for="quantityColumn">Quantity:</label>
+                        <input type="number" id="quantityColumn" name="quantityColumn" required>
+                        <label for="expirationDate">Expiration Date:</label>
+                        <input type="date" id="expirationDate" name="expirationDate" required>
+                        <input type="submit" value="Add Batch">
+                    </form>
+                </div>
+            </div>
 
-    <!-- Add Batch Modal -->
-    <div id="batchModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('batchModal')">&times;</span>
-            <h2>Add Batch</h2>
-            <form onsubmit="event.preventDefault(); addBatch();">
-                <label for="batchId">Batch ID:</label>
-                <input type="text" id="batchId" name="batchId" required>
-                <label for="productID">Product ID:</label>
-                <input type="text" id="productID" name="productID" required>
-                <label for="productName">Product Name:</label>
-                <input type="text" id="productName" name="productName" required>
-                <label for="quantityColumn">Quantity:</label>
-                <input type="number" id="quantityColumn" name="quantityColumn" required>
-                <label for="expirationDate">Expiration Date:</label>
-                <input type="date" id="expirationDate" name="expirationDate" required>
-                <input type="submit" value="Add Batch">
-            </form>
-        </div>
-    </div>
 
-    <script>
+            <script>
         let sortAscending = true; // State variable to track sorting order
 
         function toggleSearchInput(inputId) {
@@ -838,6 +640,9 @@
         }
 
     </script>
-</body>
+<script th:src="@{/scripts/inventory.js}"></script>
+        </div>
+    </main>
+    </body>
 
 </html>
