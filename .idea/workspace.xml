@@ -112,7 +112,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected="Spring Boot.InventoryManagementSystemApplication">
+  <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="Inventory-Management-System" />
       <option name="ENV_FILES" value="" />
@@ -234,7 +234,7 @@
       <option name="presentableId" value="Default" />
       <updated>1717562694331</updated>
       <workItem from="1717596448690" duration="7127000" />
-      <workItem from="1717603866167" duration="13606000" />
+      <workItem from="1717603866167" duration="15196000" />
     </task>
     <servers />
   </component>
