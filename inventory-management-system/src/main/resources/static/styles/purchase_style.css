@@ -536,8 +536,8 @@ table{
 
 .scrollable-history {
     overflow-y: auto;
-    height: 55vh;
-    width: 38vw;
+    height: 75vh;
+    width: 40vw;
 }
 
 .scrollable-history thead th {
