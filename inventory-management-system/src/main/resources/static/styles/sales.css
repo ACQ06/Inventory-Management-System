@@ -1,0 +1,270 @@
+/* Importing Google Font "Inter" */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+/* Applying universal styles to all elements */
+* {
+    font-family: "Inter", sans-serif;
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+/* Defining the body layout */
+body {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: calc(12vw + 30px) 1fr;
+    grid-template-areas: "side main";
+}
+
+/* Styling the sidebar */
+.sidebar {
+    background-color: #0077b6;
+    font-size: 1vw;
+}
+
+/* Styling the unordered list in the sidebar */
+.sidebar ul {
+    list-style-type: none;
+    display: block;
+}
+
+/* Styling the list items in the sidebar */
+.sidebar li {
+    margin-bottom: 2vh;
+    align-items: center;
+    border-radius: 0.5rem;
+}
+
+/* Adding hover effect on list items */
+.sidebar li :hover {
+    color: #10123e;
+    background-color: #fbfefe;
+    border-radius: 0.5rem;
+}
+
+/* Styling the navigation section in the sidebar */
+.sidebar .nav-section {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    justify-content: flex-end;
+    padding: 1rem;
+}
+
+/* Styling the links in the sidebar */
+.sidebar .sidebar-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #fbfefe;
+    padding: 0.75rem 0.5rem;
+}
+
+/* Styling the user section in the sidebar */
+.user {
+    display: flex;
+    color: #fbfefe;
+    align-items: center;
+    background-color: #005989;
+    padding: 20px;
+    flex-direction: row-reverse;
+    cursor: pointer;
+}
+
+/* Styling the user details in the sidebar */
+.user .user-details {
+    margin: 0px 10px;
+    width: 80%;
+}
+
+/* Styling the user role text */
+.user-details .user-role {
+    font-size: 0.8vw;
+}
+
+/* Styling the user logout section */
+.user-logout {
+    height: 50%;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+/* Styling the Material Symbols */
+.material-symbols-outlined {
+    margin-right: 1rem;
+    font-size: 1vw;
+}
+
+/* Styling the main content area */
+.main-content {
+    background-color: #e6f1f8;
+    font-size: 2vw;
+    padding: 20px;
+}
+
+.main-content .title {
+    font-weight: 500;
+}
+
+.sales-order {
+    grid-area: sales;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    grid-template-areas: "c1 c2";
+    gap: 10px;
+    padding: 5vh 2vw 3vh;
+}
+
+.sales-order .title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.sales-order .history {
+    background-color: #fbfefe;
+    padding: 20px;
+    height: 80vh;
+    max-height: 80vh;
+    border-radius: 1rem 0px 0px 1rem;
+}
+
+.history .create-button {
+    color: #fbfefe;
+    display: flex;
+    font-size: 1rem;
+    height: 5vh;
+    background-color: #1366d9;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+.history .orders {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(60vh + 50px);
+    overflow: auto;
+}
+
+.history .orders .order {
+    border: 1px solid black;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    border-radius: 1rem;
+}
+
+.history .orders .order span {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.history .orders .order .customer-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.sales-order .create {
+    background-color: #fbfefe;
+    padding: 20px;
+    height: 80vh;
+    max-height: 80vh;
+    border-radius: 0 1rem 1rem 0;
+}
+
+.sales-order .create .order-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.sales-order .create .order-details .header-details {
+    font-size: 1rem;
+}
+
+.table-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+table {
+    border-collapse: collapse;
+    width: inherit;
+    margin-top: 5vh;
+    height: 60vh;
+    max-height: 60vh;
+}
+
+thead {
+    color: black;
+    font-weight: bold;
+    font-size: 1.5rem;
+    height: 5vh;
+    border: none;
+    border-radius: 0.5rem;
+}
+
+thead,
+tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    font-size: 1rem;
+}
+
+thead tr {
+    border-bottom: 1.5px solid #bfbfbf;
+}
+
+tbody tr {
+    border-bottom: 1px solid #bfbfbf;
+}
+
+tbody {
+    display: block;
+    max-height: calc(50vh + 20px);
+    overflow: auto;
+    margin-top: 10px;
+}
+
+.items-table .item {
+    font-size: 1.25rem;
+    text-align: center;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+
+.create .button {
+    background-color: #eeeeee;
+    color: black;
+    width: 10vw;
+    height: 5vh;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.create .button:last-child {
+    background-color: #1366d9;
+    color: white;
+}
+
+.create .total-amount {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-left: -10;
+}
+
+.create .amount-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+}

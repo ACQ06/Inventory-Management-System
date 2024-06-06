@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Link to external stylesheet -->
+        <link rel="stylesheet" type="text/css" href="sales.css" />
+        <!-- Link to Google Fonts for Material Symbols -->
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        />
+        <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        />
+        <title>Sales</title>
+    </head>
+    <body>
+        <!-- Sidebar section -->
+        <section class="sidebar">
+            <div class="nav-section">
+                <ul>
+                    <li>
+                        <a href="#" class="sidebar-link">
+                            <span class="material-symbols-outlined">
+                                dashboard
+                            </span>
+                            <span class="nav-item">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-link">
+                            <span class="material-symbols-outlined">
+                                inventory_2
+                            </span>
+                            <span class="nav-item">Inventory</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-link">
+                            <span class="material-symbols-outlined">
+                                shopping_cart
+                            </span>
+                            <span class="nav-item">Sale</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-link">
+                            <span class="material-symbols-outlined">
+                                receipt
+                            </span>
+                            <span class="nav-item">Purchase</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-link">
+                            <span class="material-symbols-outlined">
+                                groups
+                            </span>
+                            <span class="nav-item">Supplier</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="sidebar-link">
+                            <span class="material-symbols-outlined">
+                                settings
+                            </span>
+                            <span class="nav-item">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- User logout section -->
+            <div class="user-logout">
+                <div class="user">
+                    <span class="material-symbols-outlined logout-icon">
+                        move_item
+                    </span>
+
+                    <div class="user-details">
+                        <div>
+                            <p class="user-name">Name</p>
+                            <p class="user-role">Role</p>
+                        </div>
+                    </div>
+                    <span class="material-symbols-outlined" href> person </span>
+                </div>
+            </div>
+        </section>
+        <!-- Main content area -->
+        <main class="main-content">
+            <div class="title">Sales</div>
+            <div class="sales-order">
+                <div class="history">
+                    <div class="title">History</div>
+                    <div class="create-button">Create new Order</div>
+                    <hr />
+                    <div class="orders">
+                        <div class="order">
+                            <div class="customer-details">
+                                <span class="name">Customer Name</span>
+                                <span class="id">Order ID</span>
+                            </div>
+                            <span class="value">Order Value</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="create">
+                    <div class="title">Create Sales Order</div>
+                    <div class="order-details">
+                        <div class="table-container">
+                            <table class="items-table">
+                                <div class="header">
+                                    <thead>
+                                        <tr>
+                                            <th>Item ID</th>
+                                            <th>Item Name</th>
+                                            <th>Price</th>
+                                            <th>Quantity</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                </div>
+
+                                <tbody>
+                                    <tr class="item">
+                                        <td>Item 1</td>
+                                        <td>Chippy</td>
+                                        <td>PHP 10</td>
+                                        <td>1</td>
+                                        <td>10</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="amount-button-container">
+                        <div class="total-amount">
+                            <span>Total Amount: </span>
+                            <span class="value">PHP 30</span>
+                        </div>
+                        <div class="buttons">
+                            <button class="add-item button">Add Item</button>
+                            <button class="create-order button">
+                                Create Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
