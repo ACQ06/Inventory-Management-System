@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class WebController {
+//    LANDING PAGE HERE
     @RequestMapping("/")
     public String index(){
         return "index";
@@ -31,10 +32,11 @@ public class WebController {
         return "purchase";
     }
 
-    @RequestMapping(value="/supplier")
-    public String supplier(){
-        return "inventory";
-    }
+//    NOT YET IMPLEMENTED
+//    @RequestMapping(value="/supplier")
+//    public String supplier(){
+//        return "inventory";
+//    }
 //  NOT YET
 //    @RequestMapping(value="/setting")
 //    public String setting(){

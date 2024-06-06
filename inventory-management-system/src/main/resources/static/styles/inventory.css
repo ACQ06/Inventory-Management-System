@@ -37,7 +37,7 @@ body {
 }
 
 /* Adding hover effect on list items */
-.sidebar li:hover {
+.sidebar li :hover {
     color: #10123e;
     background-color: #fbfefe;
     border-radius: 0.5rem;
@@ -101,6 +101,7 @@ body {
     background-color: #e6f1f8;
     font-size: 2vw;
     padding: 20px;
+    overflow: auto;
 }
 
 /* INVENTORY GROUP START */

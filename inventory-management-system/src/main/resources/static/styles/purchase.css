@@ -103,8 +103,9 @@ body {
 /* Styling the main content area */
 .main-content {
     background-color: #e6f1f8;
-    font-size: 1,5rem;
+    font-size: 1.5rem;
     padding: 20px;
+    overflow: auto;
     
 }
 

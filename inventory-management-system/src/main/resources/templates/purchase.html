@@ -3,19 +3,13 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- Link to external stylesheet -->
-<<<<<<< Updated upstream
-        <link rel="stylesheet" type="text/css" href="../static/styles/purchase_style.css" />
-=======
         <link rel="stylesheet" type="text/css" th:href="@{/styles/purchase.css}"/>
->>>>>>> Stashed changes
         <!-- Link to Google Fonts for Material Symbols -->
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
         />
-         <title>Template</title>
-        <title>Template</title>
+        <title>Purchase</title>
     </head>
     <body>
         <!-- Sidebar section -->
@@ -23,7 +17,7 @@
             <div class="nav-section">
                 <ul>
                     <li>
-                        <a href="index.html" class="sidebar-link">
+                        <a href="/dashboard" class="sidebar-link">
                             <span class="material-symbols-outlined">
                                 dashboard
                             </span>
@@ -31,7 +25,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="inventory.html" class="sidebar-link">
+                        <a href="/inventory" class="sidebar-link">
                             <span class="material-symbols-outlined">
                                 inventory_2
                             </span>
@@ -39,7 +33,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="sidebar-link">
+                        <a href="/sale" class="sidebar-link">
                             <span class="material-symbols-outlined">
                                 shopping_cart
                             </span>
@@ -47,7 +41,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="purchase.html" class="sidebar-link">
+                        <a href="/purchase" class="sidebar-link">
                             <span class="material-symbols-outlined">
                                 receipt
                             </span>
@@ -55,19 +49,11 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="sidebar-link">
+                        <a href="/supplier" class="sidebar-link">
                             <span class="material-symbols-outlined">
                                 groups
                             </span>
                             <span class="nav-item">Supplier</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                settings
-                            </span>
-                            <span class="nav-item">Settings</span>
                         </a>
                     </li>
                 </ul>
@@ -86,7 +72,7 @@
                             <p class="user-role">Role</p>
                         </div>
                     </div>
-                    <span class="material-symbols-outlined" href> person </span>
+                    <span class="material-symbols-outlined"> person </span>
                 </div>
             </div>
         </section>

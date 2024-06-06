@@ -101,6 +101,7 @@ body {
     background-color: #e6f1f8;
     font-size: 2vw;
     padding: 20px;
+    overflow: auto;
 }
 
 .main-content .title {

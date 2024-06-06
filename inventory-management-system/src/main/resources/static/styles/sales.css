@@ -101,6 +101,7 @@ body {
     background-color: #e6f1f8;
     font-size: 2vw;
     padding: 20px;
+    overflow: auto;
 }
 
 .main-content .title {
@@ -260,7 +261,6 @@ tbody {
 .create .total-amount {
     font-size: 1rem;
     font-weight: bold;
-    margin-left: -10;
 }
 
 .create .amount-button-container {
