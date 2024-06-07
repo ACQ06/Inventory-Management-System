@@ -26,8 +26,12 @@ function loginUser() {
                 window.location.href = "/userManagement";
             } else if (data.role === 2) {
                 window.location.href = "/dashboard";
-            } else {
+            } else if (data.role === 3) {
                 window.location.href = "/customerOrder";
+            }
+
+            else {
+                alert("Not Authorized!")
             }
         } else {
             // Request failed
