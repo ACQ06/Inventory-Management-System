@@ -1,6 +1,21 @@
 /* Importing Google Font "Inter" */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
 
+:root {
+    --lm_darkblue: #03045E;
+    --lm_blue: #0077B6;
+    --lm_lblue: #00B4D8;
+    --lm_vlblue: #90E0EF;
+    --lm_white: #CAF0F8;
+
+    --dm-darkblue: #060616;
+    --white: #FBFEFE;
+    
+    --btn-blue: #1366D9;
+    --txt-gray: #667085;
+    --txt-black: #060616;
+}
+
 /* Applying universal styles to all elements */
 * {
     font-family: "Inter", sans-serif;
@@ -103,9 +118,8 @@ body {
 /* Styling the main content area */
 .main-content {
     background-color: #e6f1f8;
-    font-size: 1.5rem;
+    font-size: 1,5rem;
     padding: 20px;
-    overflow: auto;
     
 }
 
@@ -122,7 +136,10 @@ body {
     padding: 5px;
     width: 50%;
     position: relative;
+    font-size: medium;
+    
 }
+
 .total-column{
     float: left;
     padding: 5px;
@@ -139,6 +156,12 @@ body {
     float: left;
     padding: 10px;
     width: 33%;
+    
+}
+.column-order{
+    float: left;
+    padding: 10px;
+    width: 50%;
     
 }
 
@@ -191,7 +214,7 @@ th, td {
 }
 
 
-.button-Edit {
+.button-edit {
     border: 1px solid #FAF9F6;
     color: #FAF9F6;
     background-color: rgb(24, 139, 206);
@@ -207,7 +230,7 @@ th, td {
     transition-duration: 0.2s;
     cursor: pointer;
 }
-.button-Edit:hover {
+.button-edit:hover {
     border: 1px solid #28282B;
     color: #008CBA;
     background-color: white;
@@ -225,7 +248,6 @@ th, td {
 
 .button-Order {
     border: 1px solid #FAF9F6;
-    
     color: black;
     background-color: rgb(203, 206, 207);
     font-weight: bold;
@@ -345,13 +367,13 @@ th, td {
     border:none;
     background-color: transparent;
     size: 1vw;
-    padding: 15px 5px;
     cursor: pointer;
-    font-size: 1rem;
+    transition-duration: 0.2s;
+    
 }
 
 .button-Icon .material-symbols-outlined {
-    margin-left: 8px;
+    margin-left: auto;
 }
 
 .button-Icon .material-symbols-outlined:hover {
@@ -365,12 +387,162 @@ th, td {
     height: 40vh;
 }
 
+
+
 .scrollable thead th {
     position: sticky;
     top: 0px;
 }
 
+
 table{
     border-collapse: collapse;
     width: 100%;
+}
+
+
+.popup {
+    display: none;
+    position: fixed; 
+    z-index: 1;
+    top:0;
+    left:0;
+    width: 100%; 
+    height: 100%;  
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+  }
+
+.modal-content {
+    background-color: var(--white);
+    margin: 5% auto 15% auto; 
+    border: 1px solid var(--lm_darkblue);
+    width: 30%;
+    height: max-content;
+}
+
+.modal-content span{
+    align-items: flex-end;
+    cursor: pointer;
+ }
+
+ .pop-container, .pop-save{
+    padding: 1vw 2vw;
+ }
+
+.pop-container h1{
+    color: var( --lm_darkblue);
+    font-size: 1vw;
+}
+
+.pop-container input[type=text], .pop-container input[type=password] {
+    width: 100%;
+    padding: 0.5vw 0rem 0.5vw;
+    margin: 0.8vw 0;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1px solid rgba(58, 59, 63, 0.2);
+    outline: none;
+    resize: none;
+    color:  rgba(76, 78, 88, 0.5);
+    font-size: 1rem;
+    letter-spacing: 0.075rem;
+}
+
+.div-pass{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.div-pass span{
+    float: right;
+    padding: 0.5vw 0rem 0.5vw;
+    margin: 0;
+    font-size: 1.25rem;
+    border-bottom: 1px solid rgba(58, 59, 63, 0.2);
+    cursor: pointer;
+}
+
+.pop-head{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 2vw;
+    margin-bottom: 1vw;
+    border-bottom: 1px solid rgba(58, 59, 63, 0.2);
+}
+
+.pop-head h1{
+    width: 100%;
+    text-align: center;
+    color: var(--dm-darkblue);
+    font-size: 2vw;
+}
+
+.pop-exit{
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.pop-exit span{
+    font-size: 2vw;
+    padding: 0 1vw 0 1vw;
+}
+
+.pop-btns{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pop-save {
+    width: 25%;
+    justify-content: center;
+    background-color: var(--btn-blue);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75vw;
+    margin: 2vw 0 1vw 0;
+    color: white;
+    font-size: 1.2vw;
+}
+.pop-remove {
+    width: 25%;
+    justify-content: center;
+    background-color: var(--btn-blue);
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.75vw;
+    margin: 2vw 0 1vw 0;
+    color: white;
+    font-size: 1.2vw;
+}
+.selected-row{
+    background-color: #dedede;
+}
+.selected-row:hover{
+    background-color: #dedede;
+}
+.order-table tr:hover {
+    background-color: #efefef;
+}
+.order-table {
+    cursor: pointer;
+}
+
+.scrollable-history{
+    overflow-x: auto;
+    width: 100%;
+    height: 100%
+}
+
+.scrollable tr th {
+    position: sticky;
+    top: 0px;
+}
+
+.scrollable-history tr:hover {
+    background-color: #efefef;
+    cursor: pointer;
 }
