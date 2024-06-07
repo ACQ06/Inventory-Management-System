@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 totalValue: orderTotalAmount
             } 
             console.log(postData);
-           // postRowData(postData);
+           postRowData(postData);
 
 
         // Clear the table body (Create Purchase Order table)
