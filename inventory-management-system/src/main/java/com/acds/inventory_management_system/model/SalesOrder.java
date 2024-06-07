@@ -2,6 +2,7 @@ package com.acds.inventory_management_system.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,11 +16,13 @@ public class SalesOrder {
     @Column(nullable = false)
     private int managerId;
     @Column(nullable = false)
-    private int productID;
+    @ElementCollection
+    private List<String> productID;
     @Column(nullable = false)
     private int productBatch;
     @Column(nullable = false)
-    private int quantity;
+    @ElementCollection
+    private List<String> quantity;
     @Column(nullable = false)
     private Date date;
     @Column(nullable = false)
