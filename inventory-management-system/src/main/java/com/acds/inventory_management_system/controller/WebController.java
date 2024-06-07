@@ -23,6 +23,11 @@ public class WebController {
     public String userManagement(){
         return "user-management";
     }
+    @RequestMapping("/customerOrder")
+    public String customerOrder(){
+        return "customer-order";
+    }
+
     @RequestMapping(value="/dashboard")
     public String dashboard(){
         return "dashboard";
