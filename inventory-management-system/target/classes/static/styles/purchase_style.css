@@ -136,7 +136,10 @@ body {
     padding: 5px;
     width: 50%;
     position: relative;
+    font-size: medium;
+    
 }
+
 .total-column{
     float: left;
     padding: 5px;
@@ -364,7 +367,6 @@ th, td {
     border:none;
     background-color: transparent;
     size: 1vw;
-   
     cursor: pointer;
     transition-duration: 0.2s;
     
@@ -532,15 +534,4 @@ table{
 .scrollable-history tr:hover {
     background-color: #efefef;
     cursor: pointer;
-}
-
-.scrollable-history {
-    overflow-y: auto;
-    height: 75vh;
-    width: 40vw;
-}
-
-.scrollable-history thead th {
-    position: sticky;
-    top: 0px;
 }

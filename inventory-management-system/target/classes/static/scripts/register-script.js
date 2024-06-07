@@ -30,7 +30,6 @@ function registerUser() {
 
   xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
-      // Request was successful
       console.log(xhr.responseText);
       window.location.href = "/userManagement";
     } else {

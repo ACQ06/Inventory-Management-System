@@ -733,8 +733,6 @@ function addUser(username, password){
         xhr.open("POST", `/api/suppliers`, false);
     }
 
-    xhr.open("POST", `/api/products`, false);
-
 
     xhr.setRequestHeader("Content-Type", "application/json");
 
