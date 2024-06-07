@@ -18,58 +18,19 @@
             <div class="nav-section">
                 <ul>
                     <li>
-                        <a href="#" class="sidebar-link">
+                        <a href="/userManagement" class="sidebar-link">
                             <span class="material-symbols-outlined">
-                                dashboard
+                                group
                             </span>
-                            <span class="nav-item">Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                inventory_2
-                            </span>
-                            <span class="nav-item">Inventory</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                shopping_cart
-                            </span>
-                            <span class="nav-item">Sale</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                receipt
-                            </span>
-                            <span class="nav-item">Purchase</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                groups
-                            </span>
-                            <span class="nav-item">Supplier</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                settings
-                            </span>
-                            <span class="nav-item">Settings</span>
+                            <span class="nav-item">Manage Users</span>
                         </a>
                     </li>
                 </ul>
             </div>
 
+            <script th:src="@{/scripts/users.js}"> </script>
             <!-- User logout section -->
-            <div class="user-logout">
+            <div class="user-logout" onclick="logoutUser()">
                 <div class="user">
                     <span class="material-symbols-outlined logout-icon">
                         move_item
@@ -81,7 +42,6 @@
                             <p class="user-role">Admin</p>
                         </div>
                     </div>
-                    <span class="material-symbols-outlined" href> person </span>
                 </div>
             </div>
         </section>
@@ -144,7 +104,7 @@
                             </thead>
                             <tbody>
                         </table>
-                          
+
                     </div>
                 </div>
             </div>
@@ -158,33 +118,34 @@
                   <div class="pop-head">
                     <h1>Add User</h1>
                   </div>
-              
+
                   <div class="pop-container">
                     <h1>USERNAME</h1>
                     <input type="text" placeholder="Enter Username" name="uname" id="uname" required>
-              
+
                     <h1>PASSWORD</h1>
                     <div class="div-pass">
                         <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
                         <span class="material-symbols-outlined">
                             visibility_off
                             </span>
-                    </div> 
+                    </div>
 
                     <h1>USER ID</h1>
                     <input type="text" placeholder="Enter User ID" name="userid" id="userid" required disabled>
-                      
+
                     <div class="pop-btns">
                         <button class="pop-save">Save</button>
                         <button class="pop-remove">Remove</button>
                     </div>
                   </div>
-              
+
                 </div>
             </div>
-            
-            
+
+
         </main>
         <script th:src="@{/scripts/um-script.js}"> </script>
+        <script th:src="@{/scripts/sidebar-utils.js}"> </script>
     </body>
 </html>

@@ -53,19 +53,12 @@
                             <span class="nav-item">Purchase</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="/supplier" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                groups
-                            </span>
-                            <span class="nav-item">Supplier</span>
-                        </a>
-                    </li>
                 </ul>
             </div>
 
+            <script th:src="@{/scripts/users.js}"> </script>
             <!-- User logout section -->
-            <div class="user-logout">
+            <div class="user-logout" onclick="logoutUser()">
                 <div class="user">
                     <span class="material-symbols-outlined logout-icon">
                         move_item
@@ -74,10 +67,9 @@
                     <div class="user-details">
                         <div>
                             <p class="user-name">Name</p>
-                            <p class="user-role">Role</p>
+                            <p class="user-role">Admin</p>
                         </div>
                     </div>
-                    <span class="material-symbols-outlined"> person </span>
                 </div>
             </div>
         </section>
@@ -144,5 +136,6 @@
                 </div>
             </div>
         </main>
+        <script th:src="@{/scripts/sidebar-utils.js}"> </script>
     </body>
 </html>

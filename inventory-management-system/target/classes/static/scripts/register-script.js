@@ -24,6 +24,11 @@ function registerUser() {
     return;
   }
 
+  if (!(notExistingUser(usernameInput.value))){
+      alert("Existing User!")
+      return
+  }
+
   const xhr = new XMLHttpRequest();
   xhr.open("POST", '/api/customers', true);
   xhr.setRequestHeader("Content-Type", "application/json");
@@ -31,7 +36,8 @@ function registerUser() {
   xhr.onload = function () {
     if (xhr.status >= 200 && xhr.status < 300) {
       console.log(xhr.responseText);
-      window.location.href = "/userManagement";
+      alert("Successfully Registered!");
+      window.location.href = "/login";
     } else {
       // Request failed
       console.error("Request failed with status:", xhr.status);

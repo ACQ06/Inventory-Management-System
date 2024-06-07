@@ -22,54 +22,15 @@
                             <span class="material-symbols-outlined">
                                 dashboard
                             </span>
-                            <span class="nav-item">Dashboard</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                inventory_2
-                            </span>
-                            <span class="nav-item">Inventory</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                shopping_cart
-                            </span>
-                            <span class="nav-item">Sale</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                receipt
-                            </span>
-                            <span class="nav-item">Purchase</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                groups
-                            </span>
-                            <span class="nav-item">Supplier</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                settings
-                            </span>
-                            <span class="nav-item">Settings</span>
+                            <span class="nav-item">Order Items</span>
                         </a>
                     </li>
                 </ul>
             </div>
 
+            <script th:src="@{/scripts/users.js}"> </script>
             <!-- User logout section -->
-            <div class="user-logout">
+            <div class="user-logout" onclick="logoutUser()">
                 <div class="user">
                     <span class="material-symbols-outlined logout-icon">
                         move_item
@@ -81,7 +42,6 @@
                             <p class="user-role">Admin</p>
                         </div>
                     </div>
-                    <span class="material-symbols-outlined" href> person </span>
                 </div>
             </div>
         </section>
@@ -177,5 +137,6 @@
         
         </main>
         <script th:src="@{/scripts/co-script.js}"> </script>
+        <script th:src="@{/scripts/sidebar-utils.js}"> </script>
     </body>
 </html>

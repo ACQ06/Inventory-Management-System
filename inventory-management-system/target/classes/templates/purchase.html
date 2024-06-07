@@ -51,27 +51,12 @@
                             <span class="nav-item">Purchase</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                groups
-                            </span>
-                            <span class="nav-item">Supplier</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="sidebar-link">
-                            <span class="material-symbols-outlined">
-                                settings
-                            </span>
-                            <span class="nav-item">Settings</span>
-                        </a>
-                    </li>
                 </ul>
             </div>
 
+            <script th:src="@{/scripts/users.js}"> </script>
             <!-- User logout section -->
-            <div class="user-logout">
+            <div class="user-logout" onclick="logoutUser()">
                 <div class="user">
                     <span class="material-symbols-outlined logout-icon">
                         move_item
@@ -80,10 +65,9 @@
                     <div class="user-details">
                         <div>
                             <p class="user-name">Name</p>
-                            <p class="user-role">Role</p>
+                            <p class="user-role">Admin</p>
                         </div>
                     </div>
-                    <span class="material-symbols-outlined" href> person </span>
                 </div>
             </div>
         </section>
@@ -103,16 +87,16 @@
                   </div>
               
                   <div class="pop-container">
-                    <h1>Item Name:<h1>
+                    <h1>Item Name:</h1>
                     <input type="text" placeholder="Enter Item Name" name="itemname" id="itemname" required>
               
-                    <h1>Item ID:<h1>
+                    <h1>Item ID:</h1>
                     <input type="text" placeholder="Enter Item ID" name="itemid" id="itemid" required>
 
-                    <h1>Price:<h1>
+                    <h1>Price:</h1>
                     <input type="text" placeholder="Enter Price" name="price" id="price" required>
                     
-                    <h1>Quantity:<h1>
+                    <h1>Quantity:</h1>
                     <input type="text" placeholder="Enter Quantity" name="quantity" id="quantity" required>
 
                     
@@ -307,5 +291,6 @@
             </div>
         </main>
         <script src="purchase-script.js"> </script>
+        <script th:src="@{/scripts/sidebar-utils.js}"> </script>
     </body>
 </html>

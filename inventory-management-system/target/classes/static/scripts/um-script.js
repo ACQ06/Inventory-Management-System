@@ -158,6 +158,11 @@ document.querySelector('.pop-save').addEventListener('click', function () {
             selectedrow.cells[3].textContent = '*'.repeat(password.length);
         }
     } else {
+        if (!(notExistingUser(username))){
+            alert("Existing User!")
+            return;
+        }
+
         const createdUserid = addUser(username, password);
         // Create a new row and append it to the table
         const row = tableBody.insertRow(-1);

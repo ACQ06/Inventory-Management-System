@@ -16,34 +16,3 @@ showPasswordCheckbox.addEventListener("click", function () {
         passwordInput.type = "password";
     }
 });
-
-function loginUser() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", '/api/users/login', true);
-    xhr.setRequestHeader("Content-Type", "application/json");
-
-    xhr.onload = function () {
-        if (xhr.status === 200) {
-            console.log(xhr.responseText);
-            alert(xhr.responseText);
-            window.location.href = "/userManagement";
-        } else {
-            // Request failed
-            console.error("Request failed with status:", xhr.status);
-            alert(xhr.responseText);
-        }
-    };
-
-    xhr.onerror = function () {
-        console.error("Request failed");
-    };
-
-    var data = {
-        name: usernameInput.value,
-        password: passwordInput.value
-    };
-
-    var json = JSON.stringify(data);
-
-    xhr.send(json);
-}

@@ -14,23 +14,24 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/users")
 public class UserController {
     private UserService userService;
-    @GetMapping("{name}")
-    public ResponseEntity<String> findExistingUser(@PathVariable("name") String userName){
+    @GetMapping
+    public ResponseEntity<String> userExist(@RequestParam("name") String userName) {
         User existingUser = userService.getUserByName(userName);
         if (existingUser == null) {
-            return new ResponseEntity<>("User Doesn't Exists", HttpStatus.OK);
+            return new ResponseEntity<>("User Doesn't Exist", HttpStatus.BAD_REQUEST);
+
         }
-        return new ResponseEntity<>("User Exists", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>("User Exists", HttpStatus.OK);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody User user, HttpSession session) {
+    public ResponseEntity<User> loginUser(@RequestBody User user, HttpSession session) {
         User existingUser = userService.getUserByName(user.getName());
         if (existingUser != null && existingUser.getPassword().equals(user.getPassword())) {
             session.setAttribute("user", existingUser);
-            return new ResponseEntity<>("Login successful!", HttpStatus.OK);
+            return new ResponseEntity<>(existingUser, HttpStatus.OK);
         }
-        return new ResponseEntity<>("Invalid Username or Password!", HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(existingUser, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/logout")
