@@ -1,0 +1,1120 @@
+Index: inventory-management-system/src/main/resources/templates/inventory.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"../static/styles/inventory.css\">\r\n    <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Icons\">\r\n    <link rel=\"stylesheet\"\r\n        href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\">\r\n    <title>Inventory</title>\r\n</head>\r\n\r\n<body>\r\n    <section class=\"sidebar\">\r\n        <div class=\"nav-section\">\r\n            <ul>\r\n                <li>\r\n                    <a href=\"index.html\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">dashboard</span>\r\n                        <span class=\"nav-item\">Dashboard</span>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"inventory.html\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">inventory_2</span>\r\n                        <span class=\"nav-item\">Inventory</span>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">shopping_cart</span>\r\n                        <span class=\"nav-item\">Sale</span>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"purchase.html\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">receipt</span>\r\n                        <span class=\"nav-item\">Purchase</span>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">groups</span>\r\n                        <span class=\"nav-item\">Supplier</span>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">settings</span>\r\n                        <span class=\"nav-item\">Settings</span>\r\n                    </a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n\r\n        <div class=\"user-logout\">\r\n            <div class=\"user\">\r\n                <span class=\"material-symbols-outlined logout-icon\">move_item</span>\r\n                <div class=\"user-details\">\r\n                    <div>\r\n                        <p class=\"user-name\">Name</p>\r\n                        <p class=\"user-role\">Role</p>\r\n                    </div>\r\n                </div>\r\n                <span class=\"material-symbols-outlined\">person</span>\r\n            </div>\r\n        </div>\r\n    </section>\r\n\r\n    <main class=\"main-content\">\r\n        <h3>Inventory</h3>\r\n\r\n        <div class=\"shape-container\">\r\n            <div class=\"shape shape-rectangle\">\r\n                <div class=\"batch-header\">\r\n                    <h6>Stock Count</h6>\r\n                    <div class=\"button-group\">\r\n                        <input type=\"text\" id=\"CategorySearch\" class=\"hidden\" placeholder=\"Search Category...\"\r\n                            onkeyup=\"searchStock('CategorySearch', 'inventory-table')\">\r\n                        <button class=\"material-icons button-icon\"\r\n                            onclick=\"toggleSearchInput('CategorySearch')\">search</button>\r\n                        <button class=\"filter-button\" onclick=\"sortTable()\">\r\n                            <span class=\"material-icons\">arrow_upward</span>\r\n                            <span class=\"material-icons\">arrow_downward</span>\r\n                            Sort\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"table-container\">\r\n                    <table class=\"inventory-table\">\r\n                        <thead>\r\n                            <tr>\r\n                                <th>Product</th>\r\n                                <th>Remaining</th>\r\n                                <th>Availability</th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr>\r\n                                <td>Product 1</td>\r\n                                <td>10</td>\r\n                                <td>Available</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 2</td>\r\n                                <td>5</td>\r\n                                <td>Low Stock</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 3</td>\r\n                                <td>8</td>\r\n                                <td>Available</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 4</td>\r\n                                <td>12</td>\r\n                                <td>Available</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 5</td>\r\n                                <td>3</td>\r\n                                <td>Low Stock</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 6</td>\r\n                                <td>7</td>\r\n                                <td>Available</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 7</td>\r\n                                <td>9</td>\r\n                                <td>Available</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 8</td>\r\n                                <td>6</td>\r\n                                <td>Low Stock</td>\r\n                            </tr>\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n\r\n            <script>\r\n                // Function to search for a specific keyword in product names\r\n                function searchStock() {\r\n                    var input, filter, table, tr, td, i, j, txtValue;\r\n                    input = document.getElementById(\"CategorySearch\");\r\n                    filter = input.value.toUpperCase();\r\n                    table = document.querySelector(\".inventory-table\");\r\n                    tr = table.getElementsByTagName(\"tr\");\r\n\r\n                    for (i = 1; i < tr.length; i++) {\r\n                        tr[i].style.display = \"none\";\r\n                        td = tr[i].getElementsByTagName(\"td\");\r\n                        for (j = 0; j < td.length; j++) {\r\n                            if (td[j]) {\r\n                                txtValue = td[j].textContent || td[j].innerText;\r\n                                if (txtValue.toUpperCase().indexOf(filter) > -1) {\r\n                                    tr[i].style.display = \"\";\r\n                                    break;\r\n                                }\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n\r\n                // Function to sort the table based on the \"Remaining\" column\r\n                function sortTable() {\r\n                    var table, rows, switching, i, x, y, shouldSwitch, switchCount = 0;\r\n                    table = document.querySelector(\".inventory-table\");\r\n                    switching = true;\r\n                    var direction = \"asc\"; \r\n\r\n                    while (switching) {\r\n                        switching = false;\r\n                        rows = table.rows;\r\n                        \r\n                        for (i = 1; i < (rows.length - 1); i++) {\r\n                            shouldSwitch = false;\r\n                            x = rows[i].getElementsByTagName(\"TD\")[1];\r\n                            y = rows[i + 1].getElementsByTagName(\"TD\")[1];\r\n                            \r\n                            if (direction === \"asc\") {\r\n                                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {\r\n                                    shouldSwitch = true;\r\n                                    break;\r\n                                }\r\n                            } else if (direction === \"desc\") {\r\n                                if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {\r\n                                    shouldSwitch = true;\r\n                                    break;\r\n                                }\r\n                            }\r\n                        }\r\n                        \r\n                        if (shouldSwitch) {\r\n                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);\r\n                            switching = true;\r\n                            switchCount++;      \r\n                        } else {\r\n                            if (switchCount === 0 && direction === \"asc\") {\r\n                                direction = \"desc\";\r\n                                switching = true;\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n            </script>\r\n\r\n            <div class=\"shape shape-rectangle2\">\r\n                <div class=\"batch-header\">\r\n                    <h6>Product List</h6>\r\n                    <div class=\"button-group\">\r\n                        <input type=\"text\" id=\"productListSearch\" class=\"hidden\" placeholder=\"Search Product List...\"\r\n                            onkeyup=\"searchProductList('productListSearch', 'inventory-table2')\">\r\n                        <button class=\"material-icons button-icon\"\r\n                            onclick=\"toggleSearchInput('productListSearch')\">search</button>\r\n                        <button class=\"material-icons button-icon\" onclick=\"openModal('productModal')\">add</button>\r\n                        <button class=\"btn\" id=\"ProductListEditButton\" onclick=\"enableProductEditing()\">Edit</button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"table-container2\">\r\n                    <table class=\"inventory-table2\">\r\n                        <thead>\r\n                            <tr>\r\n                                <th>Product ID</th>\r\n                                <th>Product Name</th>\r\n                                <th>Supplier ID</th>\r\n                                <th>Price</th>\r\n                                <th>Quantity</th>\r\n                                <th class=\"action-header hidden\">Actions</th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr>\r\n                                <td>1234</td>\r\n                                <td>A1234</td>\r\n                                <td>1234A</td>\r\n                                <td>189</td>\r\n                                <td>200</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>4566</td>\r\n                                <td>A4567</td>\r\n                                <td>4566B</td>\r\n                                <td>5000</td>\r\n                                <td>1000</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>1246</td>\r\n                                <td>B1246</td>\r\n                                <td>1246B</td>\r\n                                <td>8900</td>\r\n                                <td>100</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>7894</td>\r\n                                <td>C7894</td>\r\n                                <td>7894C</td>\r\n                                <td>12000</td>\r\n                                <td>20</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>1234</td>\r\n                                <td>A1234</td>\r\n                                <td>1234A</td>\r\n                                <td>189</td>\r\n                                <td>200</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>4566</td>\r\n                                <td>A4567</td>\r\n                                <td>4566B</td>\r\n                                <td>5000</td>\r\n                                <td>1000</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>1246</td>\r\n                                <td>B1246</td>\r\n                                <td>1246B</td>\r\n                                <td>8900</td>\r\n                                <td>100</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>7894</td>\r\n                                <td>C7894</td>\r\n                                <td>7894C</td>\r\n                                <td>12000</td>\r\n                                <td>20</td>\r\n                            </tr>\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n\r\n            <!-- Add Product Modal -->\r\n            <div id=\"productModal\" class=\"modal\">\r\n                <div class=\"modal-content\">\r\n                    <span class=\"close\" onclick=\"closeModal('productModal')\">&times;</span>\r\n                    <h2>Add Product</h2>\r\n                    <form onsubmit=\"event.preventDefault(); addProduct();\">\r\n                        <label for=\"prodID\">Product ID:</label>\r\n                        <input type=\"text\" id=\"prodID\" name=\"prodID\" required>\r\n                        <label for=\"prodName\">Product Name:</label>\r\n                        <input type=\"text\" id=\"prodName\" name=\"prodName\" required>\r\n                        <label for=\"supplierID\">Supplier ID:</label>\r\n                        <input type=\"text\" id=\"supplierID\" name=\"supplierID\" required>\r\n                        <label for=\"priceColumn\">Price:</label>\r\n                        <input type=\"number\" id=\"priceColumn\" name=\"priceColumn\" required>\r\n                        <label for=\"quantityCol\">Quantity:</label>\r\n                        <input type=\"number\" id=\"quantityCol\" name=\"quantityCol\" required>\r\n                        <input type=\"submit\" value=\"Add Product\">\r\n                    </form>\r\n                </div>\r\n            </div>\r\n\r\n            <script>\r\n\r\n                // Function to search for a specific keyword in product names\r\n                function searchProductList() {\r\n                    var input, filter, table, tr, td, i, j, txtValue;\r\n                    input = document.getElementById(\"productListSearch\");\r\n                    filter = input.value.toUpperCase();\r\n                    table = document.querySelector(\".inventory-table2 tbody\");\r\n                    tr = table.getElementsByTagName(\"tr\");\r\n\r\n                    for (i = 1; i < tr.length; i++) {\r\n                        tr[i].style.display = \"none\";\r\n                        td = tr[i].getElementsByTagName(\"td\");\r\n                        for (j = 0; j < td.length; j++) {\r\n                            if (td[j]) {\r\n                                txtValue = td[j].textContent || td[j].innerText;\r\n                                if (txtValue.toUpperCase().indexOf(filter) > -1) {\r\n                                    tr[i].style.display = \"\";\r\n                                    break;\r\n                                }\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n\r\n                function openModal(modalId) {\r\n                    var modal = document.getElementById(modalId);\r\n                    modal.style.display = \"block\";\r\n                }\r\n\r\n                function closeModal(modalId) {\r\n                    var modal = document.getElementById(modalId);\r\n                    modal.style.display = \"none\";\r\n                    var inputs = modal.querySelectorAll('input[type=\"text\"], input[type=\"number\"]');\r\n                    inputs.forEach(function (input) {\r\n                        input.value = '';\r\n                    });\r\n                }\r\n\r\n                function addProduct() {\r\n                    const prodID = document.getElementById('prodID').value;\r\n                    const prodName = document.getElementById('prodName').value;\r\n                    const supplierID = document.getElementById('supplierID').value;\r\n                    const priceColumn = document.getElementById('priceColumn').value;\r\n                    const quantityCol = document.getElementById('quantityCol').value;\r\n\r\n                    const product = {\r\n                        prodID: prodID,\r\n                        prodName: prodName,\r\n                        supplierID: supplierID,\r\n                        priceColumn: priceColumn,\r\n                        quantityCol: quantityCol\r\n                    };\r\n\r\n                    let products = JSON.parse(localStorage.getItem('products')) || [];\r\n                    products.push(product);\r\n                    localStorage.setItem('products', JSON.stringify(products));\r\n\r\n                    location.reload();\r\n                }\r\n\r\n                let products = JSON.parse(localStorage.getItem('products')) || [];\r\n                const tableBody = document.querySelector('.inventory-table2 tbody');\r\n\r\n                products.forEach(function (product) {\r\n                    const newRow = tableBody.insertRow();\r\n                    const cell1 = newRow.insertCell(0);\r\n                    const cell2 = newRow.insertCell(1);\r\n                    const cell3 = newRow.insertCell(2);\r\n                    const cell4 = newRow.insertCell(3);\r\n                    const cell5 = newRow.insertCell(4);\r\n                    cell1.textContent = product.prodID;\r\n                    cell2.textContent = product.prodName;\r\n                    cell3.textContent = product.supplierID;\r\n                    cell4.textContent = product.priceColumn;\r\n                    cell5.textContent = product.quantityCol;\r\n                });\r\n\r\n                window.onload = function () {\r\n                };\r\n\r\n\r\n                function enableProductEditing() {\r\n                    const actionHeader = document.querySelector('.inventory-table2 .action-header');\r\n                    const rows = document.querySelectorAll('.inventory-table2 tbody tr');\r\n                    const editButton = document.getElementById('ProductListEditButton');\r\n\r\n                    // Toggle the visibility of the action header\r\n                    if (actionHeader) {\r\n                        actionHeader.classList.toggle('hidden');\r\n                    }\r\n\r\n                    rows.forEach(row => {\r\n                        let actionCell = row.querySelector('.action-buttons');\r\n                        if (!actionCell) {\r\n                            actionCell = document.createElement('td');\r\n                            actionCell.classList.add('action-buttons');\r\n                            actionCell.innerHTML = `\r\n                <button class=\"edit-btn\" onclick=\"editProduct(this)\">Edit</button>\r\n                <button class=\"delete-btn\" onclick=\"deleteProduct(this)\">Delete</button>\r\n            `;\r\n                            row.appendChild(actionCell);\r\n                        }\r\n                        actionCell.classList.toggle('hidden', actionHeader && actionHeader.classList.contains('hidden'));\r\n                    });\r\n                }\r\n\r\n\r\n                function editProduct(button) {\r\n                    const row = button.closest('tr');\r\n                    const cells = row.querySelectorAll('td:not(.action-buttons)'); // Exclude the action buttons cell\r\n\r\n                    if (row.classList.contains('editing')) {\r\n                        // Save changes\r\n                        cells.forEach(cell => {\r\n                            const input = cell.querySelector('input');\r\n                            if (input) {\r\n                                cell.textContent = input.value;\r\n                            }\r\n                        });\r\n                        button.textContent = 'Edit';\r\n                        row.classList.remove('editing');\r\n                    } else {\r\n                        // Enable editing\r\n                        cells.forEach(cell => {\r\n                            const text = cell.textContent;\r\n                            const input = document.createElement('input');\r\n                            input.style.width = '100%'; // Ensure input width is 100% of the cell\r\n                            input.value = text;\r\n                            cell.textContent = '';\r\n                            cell.appendChild(input);\r\n                        });\r\n                        button.textContent = 'Save';\r\n                        row.classList.add('editing');\r\n                    }\r\n                }\r\n\r\n                function deleteProduct(button) {\r\n                    const row = button.closest('tr');\r\n                    row.remove();\r\n                }\r\n\r\n\r\n            </script>\r\n\r\n\r\n            <div class=\"shape shape-rectangle3\">\r\n                <div class=\"batch-header\">\r\n                    <h6>Batch Tracking</h6>\r\n                    <div class=\"button-group\">\r\n                        <input type=\"text\" id=\"batchSearch\" class=\"hidden\" placeholder=\"Search Batch...\"\r\n                            onkeyup=\"searchTable('batchSearch', 'inventory-table3')\">\r\n                        <button class=\"material-icons button-icon\"\r\n                            onclick=\"toggleSearchInput('batchSearch')\">search</button>\r\n                        <button class=\"material-icons button-icon\" onclick=\"openModal('batchModal')\">add</button>\r\n                        <button class=\"btn\" id=\"BatchTrackEditButton\" onclick=\"enableBatchEditing()\">Edit</button>\r\n                        <button class=\"filter-button\" onclick=\"sortTableByExpiration()\">\r\n                            <span class=\"material-icons\">arrow_upward</span>\r\n                            <span class=\"material-icons\">arrow_downward</span>\r\n                            Sort\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"table-container3\">\r\n                    <table class=\"inventory-table3\">\r\n                        <thead>\r\n                            <tr>\r\n                                <th>Batch ID</th>\r\n                                <th>Product ID</th>\r\n                                <th>Product Name</th>\r\n                                <th>Quantity</th>\r\n                                <th>Expiration Date</th>\r\n                                <th class=\"action-header hidden\">Actions</th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>04-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product B</td>\r\n                                <td>12</td>\r\n                                <td>04-20-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product C</td>\r\n                                <td>11</td>\r\n                                <td>04-18-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product D</td>\r\n                                <td>15</td>\r\n                                <td>04-29-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>05-16-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>02-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>01-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>12-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>11-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>04-13-2026</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>04-13-2024</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>04-13-2023</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>04-17-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>08-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Tapos na</td>\r\n                                <td>10</td>\r\n                                <td>02-21-2002</td>\r\n                            </tr>\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n\r\n        </div>\r\n    </main>\r\n\r\n    <!-- Add Batch Modal -->\r\n    <div id=\"batchModal\" class=\"modal\">\r\n        <div class=\"modal-content\">\r\n            <span class=\"close\" onclick=\"closeModal('batchModal')\">&times;</span>\r\n            <h2>Add Batch</h2>\r\n            <form onsubmit=\"event.preventDefault(); addBatch();\">\r\n                <label for=\"batchId\">Batch ID:</label>\r\n                <input type=\"text\" id=\"batchId\" name=\"batchId\" required>\r\n                <label for=\"productID\">Product ID:</label>\r\n                <input type=\"text\" id=\"productID\" name=\"productID\" required>\r\n                <label for=\"productName\">Product Name:</label>\r\n                <input type=\"text\" id=\"productName\" name=\"productName\" required>\r\n                <label for=\"quantityColumn\">Quantity:</label>\r\n                <input type=\"number\" id=\"quantityColumn\" name=\"quantityColumn\" required>\r\n                <label for=\"expirationDate\">Expiration Date:</label>\r\n                <input type=\"date\" id=\"expirationDate\" name=\"expirationDate\" required>\r\n                <input type=\"submit\" value=\"Add Batch\">\r\n            </form>\r\n        </div>\r\n    </div>\r\n\r\n    <script>\r\n        let sortAscending = true; // State variable to track sorting order\r\n\r\n        function toggleSearchInput(inputId) {\r\n            var input = document.getElementById(inputId);\r\n            input.classList.toggle('hidden');\r\n        }\r\n\r\n        function searchTable(inputId, tableClass) {\r\n            var input, filter, table, tr, td, i, j, txtValue;\r\n            input = document.getElementById(inputId);\r\n            filter = input.value.toUpperCase();\r\n            table = document.querySelector(`.${tableClass}`);\r\n            tr = table.getElementsByTagName(\"tr\");\r\n\r\n            for (i = 1; i < tr.length; i++) {\r\n                tr[i].style.display = \"none\";\r\n                td = tr[i].getElementsByTagName(\"td\");\r\n                for (j = 0; j < td.length; j++) {\r\n                    if (td[j]) {\r\n                        txtValue = td[j].textContent || td[j].innerText;\r\n                        if (txtValue.toUpperCase().indexOf(filter) > -1) {\r\n                            tr[i].style.display = \"\";\r\n                            break;\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        function openModal(modalId) {\r\n            var modal = document.getElementById(modalId);\r\n            modal.style.display = \"block\";\r\n        }\r\n\r\n        function closeModal(modalId) {\r\n            var modal = document.getElementById(modalId);\r\n            modal.style.display = \"none\";\r\n            var inputs = modal.querySelectorAll('input[type=\"text\"], input[type=\"date\"]');\r\n            inputs.forEach(function (input) {\r\n                input.value = '';\r\n            });\r\n        }\r\n\r\n        function addBatch() {\r\n            const batchID = document.getElementById('batchId').value;\r\n            const productID = document.getElementById('productID').value;\r\n            const productName = document.getElementById('productName').value;\r\n            const quantityColumn = document.getElementById('quantityColumn').value;\r\n            const expirationDate = formatDate(document.getElementById('expirationDate').value);\r\n\r\n            const batch = {\r\n                batchID: batchID,\r\n                productID: productID,\r\n                productName: productName,\r\n                quantityColumn: quantityColumn,\r\n                expirationDate: expirationDate\r\n            };\r\n\r\n            let batches = JSON.parse(localStorage.getItem('batches')) || [];\r\n\r\n            batches.push(batch);\r\n\r\n            localStorage.setItem('batches', JSON.stringify(batches));\r\n\r\n            location.reload(); // Reloading the page might not be necessary in all cases\r\n        }\r\n\r\n        function formatDate(dateString) {\r\n            const date = new Date(dateString);\r\n\r\n            const month = (date.getMonth() + 1).toString().padStart(2, '0');\r\n            const day = date.getDate().toString().padStart(2, '0');\r\n            const year = date.getFullYear();\r\n\r\n            return `${month}-${day}-${year}`;\r\n        }\r\n        window.onload = function () {\r\n            let batches = JSON.parse(localStorage.getItem('batches')) || [];\r\n            const tableBody = document.querySelector('.inventory-table3 tbody');\r\n            batches.forEach(function (batch) {\r\n                const newRow = tableBody.insertRow();\r\n                const cell1 = newRow.insertCell(0);\r\n                const cell2 = newRow.insertCell(1);\r\n                const cell3 = newRow.insertCell(2);\r\n                const cell4 = newRow.insertCell(3);\r\n                const cell5 = newRow.insertCell(4);\r\n                cell1.innerText = batch.batchID;\r\n                cell2.innerText = batch.productID;\r\n                cell3.innerText = batch.productName;\r\n                cell4.innerText = batch.quantityColumn;\r\n                cell5.innerText = batch.expirationDate;\r\n            });\r\n        };\r\n\r\n        function sortTableByExpiration() {\r\n            const table = document.querySelector('.inventory-table3 tbody');\r\n            const rows = Array.from(table.rows);\r\n\r\n            rows.sort((rowA, rowB) => {\r\n                const dateA = new Date(rowA.cells[4].innerText);\r\n                const dateB = new Date(rowB.cells[4].innerText);\r\n                return sortAscending ? dateA - dateB : dateB - dateA;\r\n            });\r\n\r\n            // Re-attach sorted rows\r\n            rows.forEach(row => table.appendChild(row));\r\n\r\n            // Toggle the sort order for next click\r\n            sortAscending = !sortAscending;\r\n        }\r\n\r\n\r\n        // Function for edit button\r\n        function enableBatchEditing() {\r\n            const actionHeader = document.querySelector('.inventory-table3 .action-header');\r\n            const rows = document.querySelectorAll('.inventory-table3 tbody tr');\r\n            //const editButton = document.getElementById('BatchTrackEditButton');\r\n\r\n            // Toggle the visibility of the action header\r\n            if (actionHeader) {\r\n                actionHeader.classList.toggle('hidden');\r\n            }\r\n\r\n            rows.forEach(row => {\r\n                // Check if the row already has action buttons\r\n                let actionCell = row.querySelector('.action-buttons');\r\n                if (!actionCell) {\r\n                    // Create a cell for action buttons\r\n                    actionCell = document.createElement('td');\r\n                    actionCell.classList.add('action-buttons');\r\n\r\n                    // Create Edit button\r\n                    const editButton = document.createElement('button');\r\n                    editButton.classList.add('edit-btn');\r\n                    editButton.textContent = 'Edit';\r\n                    editButton.onclick = function () {\r\n                        editBatch(this);\r\n                    };\r\n\r\n                    // Create Delete button\r\n                    const deleteButton = document.createElement('button');\r\n                    deleteButton.classList.add('delete-btn');\r\n                    deleteButton.textContent = 'Delete';\r\n                    deleteButton.onclick = function () {\r\n                        deleteBatch(this);\r\n                    };\r\n\r\n                    // Append buttons to the action cell\r\n                    actionCell.appendChild(editButton);\r\n                    actionCell.appendChild(deleteButton);\r\n\r\n                    // Append the action cell to the row\r\n                    row.appendChild(actionCell);\r\n                }\r\n\r\n                // Ensure the visibility matches the header's state\r\n                if (actionHeader && actionHeader.classList.contains('hidden')) {\r\n                    actionCell.classList.add('hidden');\r\n                } else {\r\n                    actionCell.classList.remove('hidden');\r\n                }\r\n            });\r\n        }\r\n\r\n        function editBatch(button) {\r\n            const row = button.closest('tr');\r\n            const cells = row.querySelectorAll('td:not(.action-buttons)'); // Exclude the action buttons cell\r\n\r\n            if (row.classList.contains('editing')) {\r\n                // Save changes\r\n                cells.forEach(cell => {\r\n                    const input = cell.querySelector('input');\r\n                    if (input) {\r\n                        cell.textContent = input.value;\r\n                    }\r\n                });\r\n                button.textContent = 'Edit';\r\n                row.classList.remove('editing');\r\n            } else {\r\n                // Enable editing\r\n                cells.forEach(cell => {\r\n                    const text = cell.textContent;\r\n                    const input = document.createElement('input');\r\n                    input.value = text;\r\n                    cell.textContent = '';\r\n                    cell.appendChild(input);\r\n                });\r\n                button.textContent = 'Save';\r\n                row.classList.add('editing');\r\n            }\r\n        }\r\n\r\n\r\n\r\n        // For deleting the chosen row in the table\r\n        function deleteBatch(button) {\r\n            const row = button.closest('tr');\r\n            row.remove();\r\n        }\r\n\r\n    </script>\r\n</body>\r\n\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/inventory-management-system/src/main/resources/templates/inventory.html b/inventory-management-system/src/main/resources/templates/inventory.html
+--- a/inventory-management-system/src/main/resources/templates/inventory.html	(revision 4a03c801e6c8b52c739b2619263d98896fb71609)
++++ b/inventory-management-system/src/main/resources/templates/inventory.html	(date 1717672717545)
+@@ -77,9 +77,9 @@
+                     <h6>Stock Count</h6>
+                     <div class="button-group">
+                         <input type="text" id="CategorySearch" class="hidden" placeholder="Search Category..."
+-                            onkeyup="searchStock('CategorySearch', 'inventory-table')">
++                               onkeyup="searchStock('CategorySearch', 'stocks')">
+                         <button class="material-icons button-icon"
+-                            onclick="toggleSearchInput('CategorySearch')">search</button>
++                                onclick="toggleSearchInput('CategorySearch')">search</button>
+                         <button class="filter-button" onclick="sortTable()">
+                             <span class="material-icons">arrow_upward</span>
+                             <span class="material-icons">arrow_downward</span>
+@@ -88,127 +88,21 @@
+                     </div>
+                 </div>
+                 <div class="table-container">
+-                    <table class="inventory-table">
++                    <table class="inventory-table" id ="stocks">
+                         <thead>
+-                            <tr>
+-                                <th>Product</th>
+-                                <th>Remaining</th>
+-                                <th>Availability</th>
+-                            </tr>
++                        <tr>
++                            <th>Product</th>
++                            <th>Remaining</th>
++                            <th>Availability</th>
++                        </tr>
+                         </thead>
+                         <tbody>
+-                            <tr>
+-                                <td>Product 1</td>
+-                                <td>10</td>
+-                                <td>Available</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 2</td>
+-                                <td>5</td>
+-                                <td>Low Stock</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 3</td>
+-                                <td>8</td>
+-                                <td>Available</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 4</td>
+-                                <td>12</td>
+-                                <td>Available</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 5</td>
+-                                <td>3</td>
+-                                <td>Low Stock</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 6</td>
+-                                <td>7</td>
+-                                <td>Available</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 7</td>
+-                                <td>9</td>
+-                                <td>Available</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 8</td>
+-                                <td>6</td>
+-                                <td>Low Stock</td>
+-                            </tr>
++                        <!-- columns name and quantity will be populated here along with the condition for availability -->
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+ 
+-            <script>
+-                // Function to search for a specific keyword in product names
+-                function searchStock() {
+-                    var input, filter, table, tr, td, i, j, txtValue;
+-                    input = document.getElementById("CategorySearch");
+-                    filter = input.value.toUpperCase();
+-                    table = document.querySelector(".inventory-table");
+-                    tr = table.getElementsByTagName("tr");
+-
+-                    for (i = 1; i < tr.length; i++) {
+-                        tr[i].style.display = "none";
+-                        td = tr[i].getElementsByTagName("td");
+-                        for (j = 0; j < td.length; j++) {
+-                            if (td[j]) {
+-                                txtValue = td[j].textContent || td[j].innerText;
+-                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+-                                    tr[i].style.display = "";
+-                                    break;
+-                                }
+-                            }
+-                        }
+-                    }
+-                }
+-
+-                // Function to sort the table based on the "Remaining" column
+-                function sortTable() {
+-                    var table, rows, switching, i, x, y, shouldSwitch, switchCount = 0;
+-                    table = document.querySelector(".inventory-table");
+-                    switching = true;
+-                    var direction = "asc"; 
+-
+-                    while (switching) {
+-                        switching = false;
+-                        rows = table.rows;
+-                        
+-                        for (i = 1; i < (rows.length - 1); i++) {
+-                            shouldSwitch = false;
+-                            x = rows[i].getElementsByTagName("TD")[1];
+-                            y = rows[i + 1].getElementsByTagName("TD")[1];
+-                            
+-                            if (direction === "asc") {
+-                                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+-                                    shouldSwitch = true;
+-                                    break;
+-                                }
+-                            } else if (direction === "desc") {
+-                                if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+-                                    shouldSwitch = true;
+-                                    break;
+-                                }
+-                            }
+-                        }
+-                        
+-                        if (shouldSwitch) {
+-                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+-                            switching = true;
+-                            switchCount++;      
+-                        } else {
+-                            if (switchCount === 0 && direction === "asc") {
+-                                direction = "desc";
+-                                switching = true;
+-                            }
+-                        }
+-                    }
+-                }
+-            </script>
+-
+             <div class="shape shape-rectangle2">
+                 <div class="batch-header">
+                     <h6>Product List</h6>
+@@ -222,7 +116,7 @@
+                     </div>
+                 </div>
+                 <div class="table-container2">
+-                    <table class="inventory-table2">
++                    <table class="inventory-table2" id="products">
+                         <thead>
+                             <tr>
+                                 <th>Product ID</th>
+@@ -235,60 +129,7 @@
+                         </thead>
+                         <tbody>
+                             <tr>
+-                                <td>1234</td>
+-                                <td>A1234</td>
+-                                <td>1234A</td>
+-                                <td>189</td>
+-                                <td>200</td>
+-                            </tr>
+-                            <tr>
+-                                <td>4566</td>
+-                                <td>A4567</td>
+-                                <td>4566B</td>
+-                                <td>5000</td>
+-                                <td>1000</td>
+-                            </tr>
+-                            <tr>
+-                                <td>1246</td>
+-                                <td>B1246</td>
+-                                <td>1246B</td>
+-                                <td>8900</td>
+-                                <td>100</td>
+-                            </tr>
+-                            <tr>
+-                                <td>7894</td>
+-                                <td>C7894</td>
+-                                <td>7894C</td>
+-                                <td>12000</td>
+-                                <td>20</td>
+-                            </tr>
+-                            <tr>
+-                                <td>1234</td>
+-                                <td>A1234</td>
+-                                <td>1234A</td>
+-                                <td>189</td>
+-                                <td>200</td>
+-                            </tr>
+-                            <tr>
+-                                <td>4566</td>
+-                                <td>A4567</td>
+-                                <td>4566B</td>
+-                                <td>5000</td>
+-                                <td>1000</td>
+-                            </tr>
+-                            <tr>
+-                                <td>1246</td>
+-                                <td>B1246</td>
+-                                <td>1246B</td>
+-                                <td>8900</td>
+-                                <td>100</td>
+-                            </tr>
+-                            <tr>
+-                                <td>7894</td>
+-                                <td>C7894</td>
+-                                <td>7894C</td>
+-                                <td>12000</td>
+-                                <td>20</td>
++                                <!-- Data from backend API will be populated here -->
+                             </tr>
+                         </tbody>
+                     </table>
+@@ -481,7 +322,7 @@
+                 </div>
+ 
+                 <div class="table-container3">
+-                    <table class="inventory-table3">
++                    <table class="inventory-table3" id="productBatches">
+                         <thead>
+                             <tr>
+                                 <th>Batch ID</th>
+@@ -494,109 +335,7 @@
+                         </thead>
+                         <tbody>
+                             <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>04-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product B</td>
+-                                <td>12</td>
+-                                <td>04-20-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product C</td>
+-                                <td>11</td>
+-                                <td>04-18-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product D</td>
+-                                <td>15</td>
+-                                <td>04-29-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>05-16-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>02-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>01-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>12-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>11-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>04-13-2026</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>04-13-2024</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>04-13-2023</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>04-17-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>08-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Tapos na</td>
+-                                <td>10</td>
+-                                <td>02-21-2002</td>
++                                <!-- Data from backend API will be populated here -->
+                             </tr>
+                         </tbody>
+                     </table>
+@@ -829,6 +568,7 @@
+         }
+ 
+     </script>
++<script src = "../static/scripts/inventory.js"></script>
+ </body>
+ 
+ </html>
+\ No newline at end of file
+Index: inventory-management-system/target/classes/static/scripts/index.js
+===================================================================
+diff --git a/inventory-management-system/target/classes/static/scripts/index.js b/inventory-management-system/target/classes/static/scripts/index.js
+deleted file mode 100644
+--- a/inventory-management-system/target/classes/static/scripts/index.js	(revision 4a03c801e6c8b52c739b2619263d98896fb71609)
++++ /dev/null	(revision 4a03c801e6c8b52c739b2619263d98896fb71609)
+@@ -1,2 +0,0 @@
+-// nothing yet
+-// just for testng
+Index: inventory-management-system/src/main/resources/static/scripts/index.js
+===================================================================
+diff --git a/inventory-management-system/src/main/resources/static/scripts/index.js b/inventory-management-system/src/main/resources/static/scripts/index.js
+deleted file mode 100644
+--- a/inventory-management-system/src/main/resources/static/scripts/index.js	(revision 4a03c801e6c8b52c739b2619263d98896fb71609)
++++ /dev/null	(revision 4a03c801e6c8b52c739b2619263d98896fb71609)
+@@ -1,2 +0,0 @@
+-// nothing yet
+-// just for testng
+Index: .idea/inspectionProfiles/Project_Default.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/inspectionProfiles/Project_Default.xml b/.idea/inspectionProfiles/Project_Default.xml
+new file mode 100644
+--- /dev/null	(date 1717658064896)
++++ b/.idea/inspectionProfiles/Project_Default.xml	(date 1717658064896)
+@@ -0,0 +1,15 @@
++<component name="InspectionProjectProfileManager">
++  <profile version="1.0">
++    <option name="myName" value="Project Default" />
++    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
++      <option name="myValues">
++        <value>
++          <list size="1">
++            <item index="0" class="java.lang.String" itemvalue="href" />
++          </list>
++        </value>
++      </option>
++      <option name="myCustomValuesEnabled" value="true" />
++    </inspection_tool>
++  </profile>
++</component>
+\ No newline at end of file
+Index: inventory-management-system/target/classes/templates/purchase.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n    <head>\r\n        <meta charset=\"UTF-8\" />\r\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n        <!-- Link to external stylesheet -->\r\n        <link rel=\"stylesheet\" type=\"text/css\" href=\"../static/styles/purchase_style.css\" />\r\n        <!-- Link to Google Fonts for Material Symbols -->\r\n        <link\r\n            rel=\"stylesheet\"\r\n            href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\"\r\n        />\r\n         <title>Template</title>\r\n        <title>Template</title>\r\n    </head>\r\n    <body>\r\n        <!-- Sidebar section -->\r\n        <section class=\"sidebar\">\r\n            <div class=\"nav-section\">\r\n                <ul>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                dashboard\r\n                            </span>\r\n                            <span class=\"nav-item\">Dashboard</span>\r\n                        </a>\r\n                    </li>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                inventory_2\r\n                            </span>\r\n                            <span class=\"nav-item\">Inventory</span>\r\n                        </a>\r\n                    </li>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                shopping_cart\r\n                            </span>\r\n                            <span class=\"nav-item\">Sale</span>\r\n                        </a>\r\n                    </li>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                receipt\r\n                            </span>\r\n                            <span class=\"nav-item\">Purchase</span>\r\n                        </a>\r\n                    </li>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                groups\r\n                            </span>\r\n                            <span class=\"nav-item\">Supplier</span>\r\n                        </a>\r\n                    </li>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                settings\r\n                            </span>\r\n                            <span class=\"nav-item\">Settings</span>\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n            <!-- User logout section -->\r\n            <div class=\"user-logout\">\r\n                <div class=\"user\">\r\n                    <span class=\"material-symbols-outlined logout-icon\">\r\n                        move_item\r\n                    </span>\r\n\r\n                    <div class=\"user-details\">\r\n                        <div>\r\n                            <p class=\"user-name\">Name</p>\r\n                            <p class=\"user-role\">Role</p>\r\n                        </div>\r\n                    </div>\r\n                    <span class=\"material-symbols-outlined\" href> person </span>\r\n                </div>\r\n            </div>\r\n        </section>\r\n        <!-- Main content area -->\r\n        <main class=\"main-content\">\r\n            <h1>Purchase</h1>\r\n            <div class=\"row\">\r\n                <div class=\"column\">\r\n                  <div id=\"first\" >\r\n                        <div class = \"purchase-order\">\r\n                            <h5 style=\"font-size:30px\">Create Purchase Order</h5>\r\n                            \r\n                            \r\n                            <button class =\"button-Edit\" onclick=\"editPurchaseTable()\">\r\n                                Edit\r\n                            </button>\r\n                            \r\n                        </div>\r\n                        <div class = \"purchase\"></div>\r\n                        <div class=\"user-purchase\">\r\n                        <div class=\"row\">\r\n                            <div class=\"column\">\r\n                            <label for=\"userInput\" >\r\n                            User:  \r\n                            </label>\r\n                            <input type=\"text\" id=\"userInput\" placeholder=\"Input user name...\">\r\n                            <br>\r\n                            <label for=\"purchaseIdInput\" >\r\n                                Purchase ID: \r\n                                </label>\r\n                                <label id=\"purchaseId\">\r\n                                    <script>\r\n                                        const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';\r\n                                        const purchaseID = document.getElementById('purchaseId');\r\n                                        \r\n                                        function generateString(length) {\r\n                                            let result = ' ';\r\n                                            const charactersLength = characters.length;\r\n                                            for ( let i = 0; i < length; i++ ) {\r\n                                            result += characters.charAt(Math.floor(Math.random() * charactersLength));\r\n                                            }\r\n\r\n                                        return result;\r\n                                        }\r\n                                        purchaseID.innerHTML = generateString(10);\r\n                                        \r\n\r\n                                    </script>\r\n                                </label>\r\n                            <br>\r\n                            <label for=\"dateInput\" >\r\n                                Date: \r\n                                </label>\r\n                                <input type=\"date\" id=\"dateID\" placeholder=\"\">\r\n                            </div>\r\n                            <div class=\"column\">\r\n                                <label for=\"status\" >\r\n                                    Status:  \r\n                                    </label>\r\n                                    <input type=\"text\" id=\"status\" placeholder=\"order status\">\r\n                                    <br>\r\n                                    <label for=\"manager\" >\r\n                                        Manager:  \r\n                                        </label>\r\n                                        <input type=\"text\" id=\"manager\" placeholder=\"Input manager name\">\r\n                                        <br>\r\n                                \r\n                            </div>\r\n                        </div>\r\n                        </div>\r\n                    <div class=\"scrollable\">\r\n                    <table id=\"orderTable\">\r\n                        <thread> \r\n                            <tr>\r\n                                <th>Item </th>\r\n                                <th>Item ID</th>\r\n                                <th>Price </th>\r\n                                <th>Quantity </th>\r\n                                <th>Amount </th>\r\n                            </tr>\r\n                        </thread>\r\n                        <tbody>\r\n                            <tr>\r\n                                <td contenteditable=\"false\">Item1</td>\r\n                                <td contenteditable=\"false\">A1213</td>\r\n                                <td contenteditable=\"false\">PHP 10.00</td>\r\n                                <td contenteditable=\"false\">500</td>\r\n                                <td contenteditable=\"false\">PHP 5,000.00</td>\r\n                            </tr>\r\n                        </tbody> \r\n                    </table>\r\n                </div>\r\n                    \r\n                    <button id=\"saveChangesBtn\" onclick=\"saveChanges()\" style=\"display: none;\">save</button>\r\n\r\n                    <script>\r\n\r\n                    let originalContent = []; \r\n                    \r\n                    function editPurchaseTable() {\r\n\r\n                        \r\n                    const ordTable = document.getElementById(\"orderTable\").getElementsByTagName(\"tbody\")[0];\r\n\r\n                       for (let i=0; i<ordTable.rows.length;i++){\r\n                        const rows = ordTable.rows[i];\r\n\r\n                        // make each cell editable\r\n                            for (let j=1;j <rows.cells.length;j++){\r\n                                rows.cells[j].setAttribute(\"contenteditable\",\"true\");\r\n                                }\r\n                            }\r\n                       \r\n                       // save button will appear\r\n                        var saveBtn = document.getElementById('saveChangesBtn');\r\n                        saveBtn.style.display = \"inline-block\";\r\n\r\n                    }\r\n                    \r\n                  \r\n                    function saveChanges() {\r\n                        const ordTable = document.getElementById(\"orderTable\").getElementsByTagName(\"tbody\")[0];\r\n                        let content_to_save = [];\r\n                        var cells = ordTable.getElementsByTagName('td');\r\n                        var rows = ordTable.getElementsByTagName('tr');\r\n\r\n                        // makes each cell uneditable and changes the contents of original array\r\n                        for (let i =0; i<ordTable.rows.length;i++){\r\n                        const rows = ordTable.rows[i];\r\n                        const newRow = [];\r\n                        for (let j=1;j <rows.cells.length;j++){\r\n                            rows.cells[j].setAttribute(\"contenteditable\",\"false\");\r\n                            newRow.push(rows.cells[j].textContent);\r\n                        }\r\n                        content_to_save.push(newRow);\r\n                       }\r\n                       originalContent = content_to_save;\r\n                        \r\n\r\n                        console.log(\"Changes saved:\", originalContent);\r\n                        alert(\"Changes saved!\");\r\n                       // save button will be hidden\r\n                        var saveBtn = document.getElementById('saveChangesBtn');\r\n                        saveBtn.style.display =\"none\";\r\n        \r\n                }\r\n            \r\n                    </script>\r\n\r\n                    <!-- add icon here -->\r\n                    <button class=\"button-Icon\">\r\n                        <span class=\"material-symbols-outlined\" onclick=\"addNewRow()\">\r\n                            add_circle\r\n                        </span>\r\n                    </button>\r\n                    \r\n                    <script>\r\n\r\n                        var addedRows = [];    \r\n                        function addNewRow(){\r\n                            var orderTable = document.getElementById(\"orderTable\");\r\n                            var rows = orderTable.rowslength;\r\n                            var r = orderTable.insertRow(rows);\r\n                            var c1 = r.insertCell(0);\r\n                            var c2 = r.insertCell(1);\r\n                            var c3 = r.insertCell(2);\r\n                            var c4 = r.insertCell(3);\r\n                            var c5 = r.insertCell(4);\r\n\r\n                            var item = document.createElement(\"select\");\r\n                            var item1 = document.createElement(\"option\");\r\n                            item1.text = \"Item 1\";\r\n                            var item2 = document.createElement(\"option\");\r\n                            item2.text = \"Item 2\";\r\n                            var item3 = document.createElement(\"option\");\r\n                            item3.text = \"Item 3\";\r\n\r\n                            item.add(item1);\r\n                            item.add(item2);\r\n                            item.add(item3);\r\n\r\n                            var itemId = document.createElement(\"input\");\r\n                            var price = document.createElement(\"input\");\r\n                            var quantity = document.createElement(\"input\");\r\n                            var amount = document.createElement(\"input\"); \r\n                            \r\n                            item.type = \"text\";\r\n                            itemId.type = \"text\";\r\n                            price.type = \"text\";\r\n                            quantity.type = \"number\";\r\n                            amount.type = \"text\";\r\n\r\n                            item.style.width = \"4vw\";\r\n                            itemId.style.width=\"2vw\";\r\n                            price.style.width=\"4vw\";\r\n                            quantity.style.width=\"3vw\";\r\n                            amount.style.width=\"4vw\";\r\n\r\n                            c1.appendChild(item);\r\n                            c2.appendChild(itemId);\r\n                            c3.appendChild(price);\r\n                            c4.appendChild(quantity);\r\n                            c5.appendChild(amount);\r\n\r\n                            quantity.addEventListener('input', function(){\r\n                                if (quantity.value < 0) {\r\n                                    quantity.value = 0;\r\n                                }\r\n                            });\r\n\r\n                            addedRows.push({\r\n                                item: item.value,\r\n                                itemId: itemId.value,\r\n                                price: price.value,\r\n                                quantity: quantity.value,\r\n                                amount: amount.value\r\n                            });\r\n\r\n                            // make a save button appear\r\n                            var saveBtn = document.getElementById('saveChangesBtn');\r\n                            saveBtn.style.display = \"inline-block\";\r\n                            }\r\n                            \r\n                            //function saveAllRows(){\r\n                            //    var orderTable = docume.getElementById(\"orderTable\");\r\n\r\n                            //    for (var i = 0; i < addedRows.length; i++){\r\n                             //       var rowData = addedRows[i];\r\n                             //       var newRow = orderTable.insertRow(orderTable.rows.length);\r\n                             //       var c1 = newRow.insertCell(0);\r\n                             //       var c2 = newRow.insertCell(1);\r\n                             //       var c3 = newRow.insertCell(2);\r\n                             //       var c4 = newRow.insertCell(3);\r\n                             //       var c5 = newRow.insertCell(4);\r\n\r\n                             //       c1.innerHTML = '<label>' + rowData.item + '</label>';\r\n                             //       c2.innerHTML = '<label>' + rowData.itemId + '</label>';\r\n                             //       c3.innerHTML = '<label>' + rowData.price + '</label>';\r\n                             //       c4.innerHTML = '<label>' + rowData.quantity + '</label>';\r\n                             //       c5.innerHTML = '<label>' + rowData.amount + '</label>';\r\n                              //  }\r\n\r\n                              //  addedRows = [];\r\n                              //  var saveBtn = documet.getElementById('saveChangesBtn');\r\n                              //  saveBtn.styel.display = 'none';\r\n                           // }\r\n                    </script>\r\n\r\n                    <!-- total amount (50% of the panel) -->\r\n                    <div class=\"total-button\">\r\n                        <div class=\"column\">\r\n                            <!-- empty space in total amount for comment -->\r\n                            <label for=\"comment\" >\r\n                                Comment:  \r\n                                </label>\r\n                                <textarea id=\"comment\" placeholder=\"input comment\"></textarea>\r\n                                <br>\r\n                        </div>\r\n                        <div class=\"column\">\r\n                            <div class=\"row\">\r\n                                <div class=\"column\">Total Amount:</div>\r\n                                <div class=\"total-column\"><strong>PHP 5,000.00</strong></div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <!-- Create order button goes here -->\r\n                    <div class = \"purchase-button\">\r\n                        \r\n                        <button class = \"button-Order\">\r\n                            Create Order\r\n                        </button>\r\n                        <script>\r\n                            // add the created order to the database\r\n                        </script>\r\n                    </div>\r\n                  </div>\r\n                </div>\r\n                <div class=\"column\">\r\n                  \r\n                  <div id=\"first\">\r\n                    <div class = \"purchase-history\">\r\n                        <h5 style=\"font-size:30px; float: left\"> <span>Purchase History</span></h5>\r\n                        <h5 style=\"font-size:30px; float: right\"> <span>MAY 2024</span></h5>\r\n                    </div>\r\n                    <div class = \"history\"> </div>\r\n                    \r\n                    <table> \r\n                        <tr>\r\n                            <th>Date </th>\r\n                            <th>User </th>\r\n                            <th>Purchase ID </th>\r\n                            <th>Manager</th>\r\n                            <th>Status</th>\r\n                            <th>Amount </th>\r\n                        </tr>\r\n                        <tr>\r\n                            <td>5/10/2024</td>\r\n                            <td>Hu Tao</td>\r\n                            <td>2024715</td>\r\n                            <td>Zhongli</td>\r\n                            <td>Paid</td>\r\n                            <td>PHP 10,000.00</td>\r\n                        </tr>\r\n\r\n                    </table>\r\n                    <div class=\"total-button\">\r\n                        <div class=\"column\">\r\n                            <!-- empty space in total amount -->\r\n                        </div>\r\n                        <div class=\"column\">\r\n                            <div class=\"row\">\r\n                                <div class=\"column\"><bold>Total Sales:</bold></div>\r\n                                <div class=\"total-column\" ><strong>PHP 10,000.00</strong></div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"history-button\">\r\n                        <div class=\"row\"> \r\n                            <div class=\"column-history\" >\r\n                            <button class = \"button-Back\">Back</button></div>\r\n                            <div class=\"column-history\">\r\n                            <button class = \"button-Delete\">Delete Order</button></div>\r\n                            <div class=\"column-history\" >\r\n                            <button class = \"button-Next\">Next</button></div>\r\n                        </div>\r\n                    </div>\r\n                    \r\n                </div>\r\n                </div>\r\n            </div>\r\n        </main>\r\n    </body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/inventory-management-system/target/classes/templates/purchase.html b/inventory-management-system/target/classes/templates/purchase.html
+--- a/inventory-management-system/target/classes/templates/purchase.html	(revision 4a03c801e6c8b52c739b2619263d98896fb71609)
++++ b/inventory-management-system/target/classes/templates/purchase.html	(date 1717628642485)
+@@ -19,7 +19,7 @@
+             <div class="nav-section">
+                 <ul>
+                     <li>
+-                        <a href="#" class="sidebar-link">
++                        <a href="index.html" class="sidebar-link">
+                             <span class="material-symbols-outlined">
+                                 dashboard
+                             </span>
+@@ -27,7 +27,7 @@
+                         </a>
+                     </li>
+                     <li>
+-                        <a href="#" class="sidebar-link">
++                        <a href="inventory.html" class="sidebar-link">
+                             <span class="material-symbols-outlined">
+                                 inventory_2
+                             </span>
+@@ -43,7 +43,7 @@
+                         </a>
+                     </li>
+                     <li>
+-                        <a href="#" class="sidebar-link">
++                        <a href="purchase.html" class="sidebar-link">
+                             <span class="material-symbols-outlined">
+                                 receipt
+                             </span>
+Index: inventory-management-system/target/classes/templates/index.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n    <head>\r\n        <meta charset=\"UTF-8\" />\r\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n        <!-- Link to external stylesheet -->\r\n        <link rel=\"stylesheet\" type=\"text/css\" href=\"../static/styles/index.css\" />\r\n        <!-- Link to Google Fonts for Material Symbols -->\r\n        <link\r\n            rel=\"stylesheet\"\r\n            href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\"\r\n        />\r\n        <title>Template</title>\r\n    </head>\r\n    <body>\r\n        <!-- Sidebar section -->\r\n        <section class=\"sidebar\">\r\n            <div class=\"nav-section\">\r\n                <ul>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                dashboard\r\n                            </span>\r\n                            <span class=\"nav-item\">Dashboard</span>\r\n                        </a>\r\n                    </li>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                inventory_2\r\n                            </span>\r\n                            <span class=\"nav-item\">Inventory</span>\r\n                        </a>\r\n                    </li>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                shopping_cart\r\n                            </span>\r\n                            <span class=\"nav-item\">Sale</span>\r\n                        </a>\r\n                    </li>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                receipt\r\n                            </span>\r\n                            <span class=\"nav-item\">Purchase</span>\r\n                        </a>\r\n                    </li>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                groups\r\n                            </span>\r\n                            <span class=\"nav-item\">Supplier</span>\r\n                        </a>\r\n                    </li>\r\n                    <li>\r\n                        <a href=\"#\" class=\"sidebar-link\">\r\n                            <span class=\"material-symbols-outlined\">\r\n                                settings\r\n                            </span>\r\n                            <span class=\"nav-item\">Settings</span>\r\n                        </a>\r\n                    </li>\r\n                </ul>\r\n            </div>\r\n\r\n            <!-- User logout section -->\r\n            <div class=\"user-logout\">\r\n                <div class=\"user\">\r\n                    <span class=\"material-symbols-outlined logout-icon\">\r\n                        move_item\r\n                    </span>\r\n\r\n                    <div class=\"user-details\">\r\n                        <div>\r\n                            <p class=\"user-name\">Name</p>\r\n                            <p class=\"user-role\">Role</p>\r\n                        </div>\r\n                    </div>\r\n                    <span class=\"material-symbols-outlined\" href> person </span>\r\n                </div>\r\n            </div>\r\n        </section>\r\n        <!-- Main content area -->\r\n        <main class=\"main-content\">Dashboard</main>\r\n    </body>\r\n</html>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/inventory-management-system/target/classes/templates/index.html b/inventory-management-system/target/classes/templates/index.html
+--- a/inventory-management-system/target/classes/templates/index.html	(revision 4a03c801e6c8b52c739b2619263d98896fb71609)
++++ b/inventory-management-system/target/classes/templates/index.html	(date 1717628539777)
+@@ -18,7 +18,7 @@
+             <div class="nav-section">
+                 <ul>
+                     <li>
+-                        <a href="#" class="sidebar-link">
++                        <a href="index.html" class="sidebar-link">
+                             <span class="material-symbols-outlined">
+                                 dashboard
+                             </span>
+@@ -26,7 +26,7 @@
+                         </a>
+                     </li>
+                     <li>
+-                        <a href="#" class="sidebar-link">
++                        <a href="inventory.html" class="sidebar-link">
+                             <span class="material-symbols-outlined">
+                                 inventory_2
+                             </span>
+@@ -42,7 +42,7 @@
+                         </a>
+                     </li>
+                     <li>
+-                        <a href="#" class="sidebar-link">
++                        <a href="purchase.html" class="sidebar-link">
+                             <span class="material-symbols-outlined">
+                                 receipt
+                             </span>
+Index: inventory-management-system/target/classes/templates/inventory.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\r\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"../static/styles/inventory.css\">\r\n    <link rel=\"stylesheet\" href=\"https://fonts.googleapis.com/css2?family=Material+Icons\">\r\n    <link rel=\"stylesheet\"\r\n        href=\"https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0\">\r\n    <title>Inventory</title>\r\n</head>\r\n\r\n<body>\r\n    <section class=\"sidebar\">\r\n        <div class=\"nav-section\">\r\n            <ul>\r\n                <li>\r\n                    <a href=\"index.html\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">dashboard</span>\r\n                        <span class=\"nav-item\">Dashboard</span>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">inventory_2</span>\r\n                        <span class=\"nav-item\">Inventory</span>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">shopping_cart</span>\r\n                        <span class=\"nav-item\">Sale</span>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">receipt</span>\r\n                        <span class=\"nav-item\">Purchase</span>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">groups</span>\r\n                        <span class=\"nav-item\">Supplier</span>\r\n                    </a>\r\n                </li>\r\n                <li>\r\n                    <a href=\"#\" class=\"sidebar-link\">\r\n                        <span class=\"material-symbols-outlined\">settings</span>\r\n                        <span class=\"nav-item\">Settings</span>\r\n                    </a>\r\n                </li>\r\n            </ul>\r\n        </div>\r\n\r\n        <div class=\"user-logout\">\r\n            <div class=\"user\">\r\n                <span class=\"material-symbols-outlined logout-icon\">move_item</span>\r\n                <div class=\"user-details\">\r\n                    <div>\r\n                        <p class=\"user-name\">Name</p>\r\n                        <p class=\"user-role\">Role</p>\r\n                    </div>\r\n                </div>\r\n                <span class=\"material-symbols-outlined\">person</span>\r\n            </div>\r\n        </div>\r\n    </section>\r\n\r\n    <main class=\"main-content\">\r\n        <h3>Inventory</h3>\r\n\r\n        <div class=\"shape-container\">\r\n            <div class=\"shape shape-rectangle\">\r\n                <div class=\"batch-header\">\r\n                    <h6>Stock Count</h6>\r\n                    <div class=\"button-group\">\r\n                        <input type=\"text\" id=\"CategorySearch\" class=\"hidden\" placeholder=\"Search Category...\"\r\n                            onkeyup=\"searchStock('CategorySearch', 'inventory-table')\">\r\n                        <button class=\"material-icons button-icon\"\r\n                            onclick=\"toggleSearchInput('CategorySearch')\">search</button>\r\n                        <button class=\"filter-button\" onclick=\"sortTable()\">\r\n                            <span class=\"material-icons\">arrow_upward</span>\r\n                            <span class=\"material-icons\">arrow_downward</span>\r\n                            Sort\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"table-container\">\r\n                    <table class=\"inventory-table\">\r\n                        <thead>\r\n                            <tr>\r\n                                <th>Product</th>\r\n                                <th>Remaining</th>\r\n                                <th>Availability</th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr>\r\n                                <td>Product 1</td>\r\n                                <td>10</td>\r\n                                <td>Available</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 2</td>\r\n                                <td>5</td>\r\n                                <td>Low Stock</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 3</td>\r\n                                <td>8</td>\r\n                                <td>Available</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 4</td>\r\n                                <td>12</td>\r\n                                <td>Available</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 5</td>\r\n                                <td>3</td>\r\n                                <td>Low Stock</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 6</td>\r\n                                <td>7</td>\r\n                                <td>Available</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 7</td>\r\n                                <td>9</td>\r\n                                <td>Available</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>Product 8</td>\r\n                                <td>6</td>\r\n                                <td>Low Stock</td>\r\n                            </tr>\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n\r\n            <script>\r\n                // Function to search for a specific keyword in product names\r\n                function searchStock() {\r\n                    var input, filter, table, tr, td, i, j, txtValue;\r\n                    input = document.getElementById(\"CategorySearch\");\r\n                    filter = input.value.toUpperCase();\r\n                    table = document.querySelector(\".inventory-table\");\r\n                    tr = table.getElementsByTagName(\"tr\");\r\n\r\n                    for (i = 1; i < tr.length; i++) {\r\n                        tr[i].style.display = \"none\";\r\n                        td = tr[i].getElementsByTagName(\"td\");\r\n                        for (j = 0; j < td.length; j++) {\r\n                            if (td[j]) {\r\n                                txtValue = td[j].textContent || td[j].innerText;\r\n                                if (txtValue.toUpperCase().indexOf(filter) > -1) {\r\n                                    tr[i].style.display = \"\";\r\n                                    break;\r\n                                }\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n\r\n                // Function to sort the table based on the \"Remaining\" column\r\n                function sortTable() {\r\n                    var table, rows, switching, i, x, y, shouldSwitch, switchCount = 0;\r\n                    table = document.querySelector(\".inventory-table\");\r\n                    switching = true;\r\n                    var direction = \"asc\"; \r\n\r\n                    while (switching) {\r\n                        switching = false;\r\n                        rows = table.rows;\r\n                        \r\n                        for (i = 1; i < (rows.length - 1); i++) {\r\n                            shouldSwitch = false;\r\n                            x = rows[i].getElementsByTagName(\"TD\")[1];\r\n                            y = rows[i + 1].getElementsByTagName(\"TD\")[1];\r\n                            \r\n                            if (direction === \"asc\") {\r\n                                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {\r\n                                    shouldSwitch = true;\r\n                                    break;\r\n                                }\r\n                            } else if (direction === \"desc\") {\r\n                                if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {\r\n                                    shouldSwitch = true;\r\n                                    break;\r\n                                }\r\n                            }\r\n                        }\r\n                        \r\n                        if (shouldSwitch) {\r\n                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);\r\n                            switching = true;\r\n                            switchCount++;      \r\n                        } else {\r\n                            if (switchCount === 0 && direction === \"asc\") {\r\n                                direction = \"desc\";\r\n                                switching = true;\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n            </script>\r\n\r\n            <div class=\"shape shape-rectangle2\">\r\n                <div class=\"batch-header\">\r\n                    <h6>Product List</h6>\r\n                    <div class=\"button-group\">\r\n                        <input type=\"text\" id=\"productListSearch\" class=\"hidden\" placeholder=\"Search Product List...\"\r\n                            onkeyup=\"searchProductList('productListSearch', 'inventory-table2')\">\r\n                        <button class=\"material-icons button-icon\"\r\n                            onclick=\"toggleSearchInput('productListSearch')\">search</button>\r\n                        <button class=\"material-icons button-icon\" onclick=\"openModal('productModal')\">add</button>\r\n                        <button class=\"btn\" id=\"ProductListEditButton\" onclick=\"enableProductEditing()\">Edit</button>\r\n                    </div>\r\n                </div>\r\n                <div class=\"table-container2\">\r\n                    <table class=\"inventory-table2\">\r\n                        <thead>\r\n                            <tr>\r\n                                <th>Product ID</th>\r\n                                <th>Product Name</th>\r\n                                <th>Supplier ID</th>\r\n                                <th>Price</th>\r\n                                <th>Quantity</th>\r\n                                <th class=\"action-header hidden\">Actions</th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr>\r\n                                <td>1234</td>\r\n                                <td>A1234</td>\r\n                                <td>1234A</td>\r\n                                <td>189</td>\r\n                                <td>200</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>4566</td>\r\n                                <td>A4567</td>\r\n                                <td>4566B</td>\r\n                                <td>5000</td>\r\n                                <td>1000</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>1246</td>\r\n                                <td>B1246</td>\r\n                                <td>1246B</td>\r\n                                <td>8900</td>\r\n                                <td>100</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>7894</td>\r\n                                <td>C7894</td>\r\n                                <td>7894C</td>\r\n                                <td>12000</td>\r\n                                <td>20</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>1234</td>\r\n                                <td>A1234</td>\r\n                                <td>1234A</td>\r\n                                <td>189</td>\r\n                                <td>200</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>4566</td>\r\n                                <td>A4567</td>\r\n                                <td>4566B</td>\r\n                                <td>5000</td>\r\n                                <td>1000</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>1246</td>\r\n                                <td>B1246</td>\r\n                                <td>1246B</td>\r\n                                <td>8900</td>\r\n                                <td>100</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>7894</td>\r\n                                <td>C7894</td>\r\n                                <td>7894C</td>\r\n                                <td>12000</td>\r\n                                <td>20</td>\r\n                            </tr>\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n\r\n            <!-- Add Product Modal -->\r\n            <div id=\"productModal\" class=\"modal\">\r\n                <div class=\"modal-content\">\r\n                    <span class=\"close\" onclick=\"closeModal('productModal')\">&times;</span>\r\n                    <h2>Add Product</h2>\r\n                    <form onsubmit=\"event.preventDefault(); addProduct();\">\r\n                        <label for=\"prodID\">Product ID:</label>\r\n                        <input type=\"text\" id=\"prodID\" name=\"prodID\" required>\r\n                        <label for=\"prodName\">Product Name:</label>\r\n                        <input type=\"text\" id=\"prodName\" name=\"prodName\" required>\r\n                        <label for=\"supplierID\">Supplier ID:</label>\r\n                        <input type=\"text\" id=\"supplierID\" name=\"supplierID\" required>\r\n                        <label for=\"priceColumn\">Price:</label>\r\n                        <input type=\"number\" id=\"priceColumn\" name=\"priceColumn\" required>\r\n                        <label for=\"quantityCol\">Quantity:</label>\r\n                        <input type=\"number\" id=\"quantityCol\" name=\"quantityCol\" required>\r\n                        <input type=\"submit\" value=\"Add Product\">\r\n                    </form>\r\n                </div>\r\n            </div>\r\n\r\n            <script>\r\n\r\n                // Function to search for a specific keyword in product names\r\n                function searchProductList() {\r\n                    var input, filter, table, tr, td, i, j, txtValue;\r\n                    input = document.getElementById(\"productListSearch\");\r\n                    filter = input.value.toUpperCase();\r\n                    table = document.querySelector(\".inventory-table2 tbody\");\r\n                    tr = table.getElementsByTagName(\"tr\");\r\n\r\n                    for (i = 1; i < tr.length; i++) {\r\n                        tr[i].style.display = \"none\";\r\n                        td = tr[i].getElementsByTagName(\"td\");\r\n                        for (j = 0; j < td.length; j++) {\r\n                            if (td[j]) {\r\n                                txtValue = td[j].textContent || td[j].innerText;\r\n                                if (txtValue.toUpperCase().indexOf(filter) > -1) {\r\n                                    tr[i].style.display = \"\";\r\n                                    break;\r\n                                }\r\n                            }\r\n                        }\r\n                    }\r\n                }\r\n\r\n                function openModal(modalId) {\r\n                    var modal = document.getElementById(modalId);\r\n                    modal.style.display = \"block\";\r\n                }\r\n\r\n                function closeModal(modalId) {\r\n                    var modal = document.getElementById(modalId);\r\n                    modal.style.display = \"none\";\r\n                    var inputs = modal.querySelectorAll('input[type=\"text\"], input[type=\"number\"]');\r\n                    inputs.forEach(function (input) {\r\n                        input.value = '';\r\n                    });\r\n                }\r\n\r\n                function addProduct() {\r\n                    const prodID = document.getElementById('prodID').value;\r\n                    const prodName = document.getElementById('prodName').value;\r\n                    const supplierID = document.getElementById('supplierID').value;\r\n                    const priceColumn = document.getElementById('priceColumn').value;\r\n                    const quantityCol = document.getElementById('quantityCol').value;\r\n\r\n                    const product = {\r\n                        prodID: prodID,\r\n                        prodName: prodName,\r\n                        supplierID: supplierID,\r\n                        priceColumn: priceColumn,\r\n                        quantityCol: quantityCol\r\n                    };\r\n\r\n                    let products = JSON.parse(localStorage.getItem('products')) || [];\r\n                    products.push(product);\r\n                    localStorage.setItem('products', JSON.stringify(products));\r\n\r\n                    location.reload();\r\n                }\r\n\r\n                let products = JSON.parse(localStorage.getItem('products')) || [];\r\n                const tableBody = document.querySelector('.inventory-table2 tbody');\r\n\r\n                products.forEach(function (product) {\r\n                    const newRow = tableBody.insertRow();\r\n                    const cell1 = newRow.insertCell(0);\r\n                    const cell2 = newRow.insertCell(1);\r\n                    const cell3 = newRow.insertCell(2);\r\n                    const cell4 = newRow.insertCell(3);\r\n                    const cell5 = newRow.insertCell(4);\r\n                    cell1.textContent = product.prodID;\r\n                    cell2.textContent = product.prodName;\r\n                    cell3.textContent = product.supplierID;\r\n                    cell4.textContent = product.priceColumn;\r\n                    cell5.textContent = product.quantityCol;\r\n                });\r\n\r\n                window.onload = function () {\r\n                };\r\n\r\n\r\n                function enableProductEditing() {\r\n                    const actionHeader = document.querySelector('.inventory-table2 .action-header');\r\n                    const rows = document.querySelectorAll('.inventory-table2 tbody tr');\r\n                    const editButton = document.getElementById('ProductListEditButton');\r\n\r\n                    // Toggle the visibility of the action header\r\n                    if (actionHeader) {\r\n                        actionHeader.classList.toggle('hidden');\r\n                    }\r\n\r\n                    rows.forEach(row => {\r\n                        let actionCell = row.querySelector('.action-buttons');\r\n                        if (!actionCell) {\r\n                            actionCell = document.createElement('td');\r\n                            actionCell.classList.add('action-buttons');\r\n                            actionCell.innerHTML = `\r\n                <button class=\"edit-btn\" onclick=\"editProduct(this)\">Edit</button>\r\n                <button class=\"delete-btn\" onclick=\"deleteProduct(this)\">Delete</button>\r\n            `;\r\n                            row.appendChild(actionCell);\r\n                        }\r\n                        actionCell.classList.toggle('hidden', actionHeader && actionHeader.classList.contains('hidden'));\r\n                    });\r\n                }\r\n\r\n\r\n                function editProduct(button) {\r\n                    const row = button.closest('tr');\r\n                    const cells = row.querySelectorAll('td:not(.action-buttons)'); // Exclude the action buttons cell\r\n\r\n                    if (row.classList.contains('editing')) {\r\n                        // Save changes\r\n                        cells.forEach(cell => {\r\n                            const input = cell.querySelector('input');\r\n                            if (input) {\r\n                                cell.textContent = input.value;\r\n                            }\r\n                        });\r\n                        button.textContent = 'Edit';\r\n                        row.classList.remove('editing');\r\n                    } else {\r\n                        // Enable editing\r\n                        cells.forEach(cell => {\r\n                            const text = cell.textContent;\r\n                            const input = document.createElement('input');\r\n                            input.style.width = '100%'; // Ensure input width is 100% of the cell\r\n                            input.value = text;\r\n                            cell.textContent = '';\r\n                            cell.appendChild(input);\r\n                        });\r\n                        button.textContent = 'Save';\r\n                        row.classList.add('editing');\r\n                    }\r\n                }\r\n\r\n                function deleteProduct(button) {\r\n                    const row = button.closest('tr');\r\n                    row.remove();\r\n                }\r\n\r\n\r\n            </script>\r\n\r\n\r\n            <div class=\"shape shape-rectangle3\">\r\n                <div class=\"batch-header\">\r\n                    <h6>Batch Tracking</h6>\r\n                    <div class=\"button-group\">\r\n                        <input type=\"text\" id=\"batchSearch\" class=\"hidden\" placeholder=\"Search Batch...\"\r\n                            onkeyup=\"searchTable('batchSearch', 'inventory-table3')\">\r\n                        <button class=\"material-icons button-icon\"\r\n                            onclick=\"toggleSearchInput('batchSearch')\">search</button>\r\n                        <button class=\"material-icons button-icon\" onclick=\"openModal('batchModal')\">add</button>\r\n                        <button class=\"btn\" id=\"BatchTrackEditButton\" onclick=\"enableBatchEditing()\">Edit</button>\r\n                        <button class=\"filter-button\" onclick=\"sortTableByExpiration()\">\r\n                            <span class=\"material-icons\">arrow_upward</span>\r\n                            <span class=\"material-icons\">arrow_downward</span>\r\n                            Sort\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"table-container3\">\r\n                    <table class=\"inventory-table3\">\r\n                        <thead>\r\n                            <tr>\r\n                                <th>Batch ID</th>\r\n                                <th>Product ID</th>\r\n                                <th>Product Name</th>\r\n                                <th>Quantity</th>\r\n                                <th>Expiration Date</th>\r\n                                <th class=\"action-header hidden\">Actions</th>\r\n                            </tr>\r\n                        </thead>\r\n                        <tbody>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>04-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product B</td>\r\n                                <td>12</td>\r\n                                <td>04-20-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product C</td>\r\n                                <td>11</td>\r\n                                <td>04-18-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product D</td>\r\n                                <td>15</td>\r\n                                <td>04-29-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>05-16-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>02-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>01-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>12-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>11-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>04-13-2026</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>04-13-2024</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>04-13-2023</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>04-17-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Product A</td>\r\n                                <td>10</td>\r\n                                <td>08-13-2025</td>\r\n                            </tr>\r\n                            <tr>\r\n                                <td>A123456</td>\r\n                                <td>123123123123123</td>\r\n                                <td>Tapos na</td>\r\n                                <td>10</td>\r\n                                <td>02-21-2002</td>\r\n                            </tr>\r\n                        </tbody>\r\n                    </table>\r\n                </div>\r\n            </div>\r\n\r\n        </div>\r\n    </main>\r\n\r\n    <!-- Add Batch Modal -->\r\n    <div id=\"batchModal\" class=\"modal\">\r\n        <div class=\"modal-content\">\r\n            <span class=\"close\" onclick=\"closeModal('batchModal')\">&times;</span>\r\n            <h2>Add Batch</h2>\r\n            <form onsubmit=\"event.preventDefault(); addBatch();\">\r\n                <label for=\"batchId\">Batch ID:</label>\r\n                <input type=\"text\" id=\"batchId\" name=\"batchId\" required>\r\n                <label for=\"productID\">Product ID:</label>\r\n                <input type=\"text\" id=\"productID\" name=\"productID\" required>\r\n                <label for=\"productName\">Product Name:</label>\r\n                <input type=\"text\" id=\"productName\" name=\"productName\" required>\r\n                <label for=\"quantityColumn\">Quantity:</label>\r\n                <input type=\"number\" id=\"quantityColumn\" name=\"quantityColumn\" required>\r\n                <label for=\"expirationDate\">Expiration Date:</label>\r\n                <input type=\"date\" id=\"expirationDate\" name=\"expirationDate\" required>\r\n                <input type=\"submit\" value=\"Add Batch\">\r\n            </form>\r\n        </div>\r\n    </div>\r\n\r\n    <script>\r\n        let sortAscending = true; // State variable to track sorting order\r\n\r\n        function toggleSearchInput(inputId) {\r\n            var input = document.getElementById(inputId);\r\n            input.classList.toggle('hidden');\r\n        }\r\n\r\n        function searchTable(inputId, tableClass) {\r\n            var input, filter, table, tr, td, i, j, txtValue;\r\n            input = document.getElementById(inputId);\r\n            filter = input.value.toUpperCase();\r\n            table = document.querySelector(`.${tableClass}`);\r\n            tr = table.getElementsByTagName(\"tr\");\r\n\r\n            for (i = 1; i < tr.length; i++) {\r\n                tr[i].style.display = \"none\";\r\n                td = tr[i].getElementsByTagName(\"td\");\r\n                for (j = 0; j < td.length; j++) {\r\n                    if (td[j]) {\r\n                        txtValue = td[j].textContent || td[j].innerText;\r\n                        if (txtValue.toUpperCase().indexOf(filter) > -1) {\r\n                            tr[i].style.display = \"\";\r\n                            break;\r\n                        }\r\n                    }\r\n                }\r\n            }\r\n        }\r\n\r\n        function openModal(modalId) {\r\n            var modal = document.getElementById(modalId);\r\n            modal.style.display = \"block\";\r\n        }\r\n\r\n        function closeModal(modalId) {\r\n            var modal = document.getElementById(modalId);\r\n            modal.style.display = \"none\";\r\n            var inputs = modal.querySelectorAll('input[type=\"text\"], input[type=\"date\"]');\r\n            inputs.forEach(function (input) {\r\n                input.value = '';\r\n            });\r\n        }\r\n\r\n        function addBatch() {\r\n            const batchID = document.getElementById('batchId').value;\r\n            const productID = document.getElementById('productID').value;\r\n            const productName = document.getElementById('productName').value;\r\n            const quantityColumn = document.getElementById('quantityColumn').value;\r\n            const expirationDate = formatDate(document.getElementById('expirationDate').value);\r\n\r\n            const batch = {\r\n                batchID: batchID,\r\n                productID: productID,\r\n                productName: productName,\r\n                quantityColumn: quantityColumn,\r\n                expirationDate: expirationDate\r\n            };\r\n\r\n            let batches = JSON.parse(localStorage.getItem('batches')) || [];\r\n\r\n            batches.push(batch);\r\n\r\n            localStorage.setItem('batches', JSON.stringify(batches));\r\n\r\n            location.reload(); // Reloading the page might not be necessary in all cases\r\n        }\r\n\r\n        function formatDate(dateString) {\r\n            const date = new Date(dateString);\r\n\r\n            const month = (date.getMonth() + 1).toString().padStart(2, '0');\r\n            const day = date.getDate().toString().padStart(2, '0');\r\n            const year = date.getFullYear();\r\n\r\n            return `${month}-${day}-${year}`;\r\n        }\r\n        window.onload = function () {\r\n            let batches = JSON.parse(localStorage.getItem('batches')) || [];\r\n            const tableBody = document.querySelector('.inventory-table3 tbody');\r\n            batches.forEach(function (batch) {\r\n                const newRow = tableBody.insertRow();\r\n                const cell1 = newRow.insertCell(0);\r\n                const cell2 = newRow.insertCell(1);\r\n                const cell3 = newRow.insertCell(2);\r\n                const cell4 = newRow.insertCell(3);\r\n                const cell5 = newRow.insertCell(4);\r\n                cell1.innerText = batch.batchID;\r\n                cell2.innerText = batch.productID;\r\n                cell3.innerText = batch.productName;\r\n                cell4.innerText = batch.quantityColumn;\r\n                cell5.innerText = batch.expirationDate;\r\n            });\r\n        };\r\n\r\n        function sortTableByExpiration() {\r\n            const table = document.querySelector('.inventory-table3 tbody');\r\n            const rows = Array.from(table.rows);\r\n\r\n            rows.sort((rowA, rowB) => {\r\n                const dateA = new Date(rowA.cells[4].innerText);\r\n                const dateB = new Date(rowB.cells[4].innerText);\r\n                return sortAscending ? dateA - dateB : dateB - dateA;\r\n            });\r\n\r\n            // Re-attach sorted rows\r\n            rows.forEach(row => table.appendChild(row));\r\n\r\n            // Toggle the sort order for next click\r\n            sortAscending = !sortAscending;\r\n        }\r\n\r\n\r\n        // Function for edit button\r\n        function enableBatchEditing() {\r\n            const actionHeader = document.querySelector('.inventory-table3 .action-header');\r\n            const rows = document.querySelectorAll('.inventory-table3 tbody tr');\r\n            //const editButton = document.getElementById('BatchTrackEditButton');\r\n\r\n            // Toggle the visibility of the action header\r\n            if (actionHeader) {\r\n                actionHeader.classList.toggle('hidden');\r\n            }\r\n\r\n            rows.forEach(row => {\r\n                // Check if the row already has action buttons\r\n                let actionCell = row.querySelector('.action-buttons');\r\n                if (!actionCell) {\r\n                    // Create a cell for action buttons\r\n                    actionCell = document.createElement('td');\r\n                    actionCell.classList.add('action-buttons');\r\n\r\n                    // Create Edit button\r\n                    const editButton = document.createElement('button');\r\n                    editButton.classList.add('edit-btn');\r\n                    editButton.textContent = 'Edit';\r\n                    editButton.onclick = function () {\r\n                        editBatch(this);\r\n                    };\r\n\r\n                    // Create Delete button\r\n                    const deleteButton = document.createElement('button');\r\n                    deleteButton.classList.add('delete-btn');\r\n                    deleteButton.textContent = 'Delete';\r\n                    deleteButton.onclick = function () {\r\n                        deleteBatch(this);\r\n                    };\r\n\r\n                    // Append buttons to the action cell\r\n                    actionCell.appendChild(editButton);\r\n                    actionCell.appendChild(deleteButton);\r\n\r\n                    // Append the action cell to the row\r\n                    row.appendChild(actionCell);\r\n                }\r\n\r\n                // Ensure the visibility matches the header's state\r\n                if (actionHeader && actionHeader.classList.contains('hidden')) {\r\n                    actionCell.classList.add('hidden');\r\n                } else {\r\n                    actionCell.classList.remove('hidden');\r\n                }\r\n            });\r\n        }\r\n\r\n        function editBatch(button) {\r\n            const row = button.closest('tr');\r\n            const cells = row.querySelectorAll('td:not(.action-buttons)'); // Exclude the action buttons cell\r\n\r\n            if (row.classList.contains('editing')) {\r\n                // Save changes\r\n                cells.forEach(cell => {\r\n                    const input = cell.querySelector('input');\r\n                    if (input) {\r\n                        cell.textContent = input.value;\r\n                    }\r\n                });\r\n                button.textContent = 'Edit';\r\n                row.classList.remove('editing');\r\n            } else {\r\n                // Enable editing\r\n                cells.forEach(cell => {\r\n                    const text = cell.textContent;\r\n                    const input = document.createElement('input');\r\n                    input.value = text;\r\n                    cell.textContent = '';\r\n                    cell.appendChild(input);\r\n                });\r\n                button.textContent = 'Save';\r\n                row.classList.add('editing');\r\n            }\r\n        }\r\n\r\n\r\n\r\n        // For deleting the chosen row in the table\r\n        function deleteBatch(button) {\r\n            const row = button.closest('tr');\r\n            row.remove();\r\n        }\r\n\r\n    </script>\r\n</body>\r\n\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/inventory-management-system/target/classes/templates/inventory.html b/inventory-management-system/target/classes/templates/inventory.html
+--- a/inventory-management-system/target/classes/templates/inventory.html	(revision 4a03c801e6c8b52c739b2619263d98896fb71609)
++++ b/inventory-management-system/target/classes/templates/inventory.html	(date 1717672717545)
+@@ -22,7 +22,7 @@
+                     </a>
+                 </li>
+                 <li>
+-                    <a href="#" class="sidebar-link">
++                    <a href="inventory.html" class="sidebar-link">
+                         <span class="material-symbols-outlined">inventory_2</span>
+                         <span class="nav-item">Inventory</span>
+                     </a>
+@@ -34,7 +34,7 @@
+                     </a>
+                 </li>
+                 <li>
+-                    <a href="#" class="sidebar-link">
++                    <a href="purchase.html" class="sidebar-link">
+                         <span class="material-symbols-outlined">receipt</span>
+                         <span class="nav-item">Purchase</span>
+                     </a>
+@@ -77,9 +77,9 @@
+                     <h6>Stock Count</h6>
+                     <div class="button-group">
+                         <input type="text" id="CategorySearch" class="hidden" placeholder="Search Category..."
+-                            onkeyup="searchStock('CategorySearch', 'inventory-table')">
++                               onkeyup="searchStock('CategorySearch', 'stocks')">
+                         <button class="material-icons button-icon"
+-                            onclick="toggleSearchInput('CategorySearch')">search</button>
++                                onclick="toggleSearchInput('CategorySearch')">search</button>
+                         <button class="filter-button" onclick="sortTable()">
+                             <span class="material-icons">arrow_upward</span>
+                             <span class="material-icons">arrow_downward</span>
+@@ -88,127 +88,21 @@
+                     </div>
+                 </div>
+                 <div class="table-container">
+-                    <table class="inventory-table">
++                    <table class="inventory-table" id ="stocks">
+                         <thead>
+-                            <tr>
+-                                <th>Product</th>
+-                                <th>Remaining</th>
+-                                <th>Availability</th>
+-                            </tr>
++                        <tr>
++                            <th>Product</th>
++                            <th>Remaining</th>
++                            <th>Availability</th>
++                        </tr>
+                         </thead>
+                         <tbody>
+-                            <tr>
+-                                <td>Product 1</td>
+-                                <td>10</td>
+-                                <td>Available</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 2</td>
+-                                <td>5</td>
+-                                <td>Low Stock</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 3</td>
+-                                <td>8</td>
+-                                <td>Available</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 4</td>
+-                                <td>12</td>
+-                                <td>Available</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 5</td>
+-                                <td>3</td>
+-                                <td>Low Stock</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 6</td>
+-                                <td>7</td>
+-                                <td>Available</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 7</td>
+-                                <td>9</td>
+-                                <td>Available</td>
+-                            </tr>
+-                            <tr>
+-                                <td>Product 8</td>
+-                                <td>6</td>
+-                                <td>Low Stock</td>
+-                            </tr>
++                        <!-- columns name and quantity will be populated here along with the condition for availability -->
+                         </tbody>
+                     </table>
+                 </div>
+             </div>
+ 
+-            <script>
+-                // Function to search for a specific keyword in product names
+-                function searchStock() {
+-                    var input, filter, table, tr, td, i, j, txtValue;
+-                    input = document.getElementById("CategorySearch");
+-                    filter = input.value.toUpperCase();
+-                    table = document.querySelector(".inventory-table");
+-                    tr = table.getElementsByTagName("tr");
+-
+-                    for (i = 1; i < tr.length; i++) {
+-                        tr[i].style.display = "none";
+-                        td = tr[i].getElementsByTagName("td");
+-                        for (j = 0; j < td.length; j++) {
+-                            if (td[j]) {
+-                                txtValue = td[j].textContent || td[j].innerText;
+-                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+-                                    tr[i].style.display = "";
+-                                    break;
+-                                }
+-                            }
+-                        }
+-                    }
+-                }
+-
+-                // Function to sort the table based on the "Remaining" column
+-                function sortTable() {
+-                    var table, rows, switching, i, x, y, shouldSwitch, switchCount = 0;
+-                    table = document.querySelector(".inventory-table");
+-                    switching = true;
+-                    var direction = "asc"; 
+-
+-                    while (switching) {
+-                        switching = false;
+-                        rows = table.rows;
+-                        
+-                        for (i = 1; i < (rows.length - 1); i++) {
+-                            shouldSwitch = false;
+-                            x = rows[i].getElementsByTagName("TD")[1];
+-                            y = rows[i + 1].getElementsByTagName("TD")[1];
+-                            
+-                            if (direction === "asc") {
+-                                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
+-                                    shouldSwitch = true;
+-                                    break;
+-                                }
+-                            } else if (direction === "desc") {
+-                                if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
+-                                    shouldSwitch = true;
+-                                    break;
+-                                }
+-                            }
+-                        }
+-                        
+-                        if (shouldSwitch) {
+-                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+-                            switching = true;
+-                            switchCount++;      
+-                        } else {
+-                            if (switchCount === 0 && direction === "asc") {
+-                                direction = "desc";
+-                                switching = true;
+-                            }
+-                        }
+-                    }
+-                }
+-            </script>
+-
+             <div class="shape shape-rectangle2">
+                 <div class="batch-header">
+                     <h6>Product List</h6>
+@@ -222,7 +116,7 @@
+                     </div>
+                 </div>
+                 <div class="table-container2">
+-                    <table class="inventory-table2">
++                    <table class="inventory-table2" id="products">
+                         <thead>
+                             <tr>
+                                 <th>Product ID</th>
+@@ -235,60 +129,7 @@
+                         </thead>
+                         <tbody>
+                             <tr>
+-                                <td>1234</td>
+-                                <td>A1234</td>
+-                                <td>1234A</td>
+-                                <td>189</td>
+-                                <td>200</td>
+-                            </tr>
+-                            <tr>
+-                                <td>4566</td>
+-                                <td>A4567</td>
+-                                <td>4566B</td>
+-                                <td>5000</td>
+-                                <td>1000</td>
+-                            </tr>
+-                            <tr>
+-                                <td>1246</td>
+-                                <td>B1246</td>
+-                                <td>1246B</td>
+-                                <td>8900</td>
+-                                <td>100</td>
+-                            </tr>
+-                            <tr>
+-                                <td>7894</td>
+-                                <td>C7894</td>
+-                                <td>7894C</td>
+-                                <td>12000</td>
+-                                <td>20</td>
+-                            </tr>
+-                            <tr>
+-                                <td>1234</td>
+-                                <td>A1234</td>
+-                                <td>1234A</td>
+-                                <td>189</td>
+-                                <td>200</td>
+-                            </tr>
+-                            <tr>
+-                                <td>4566</td>
+-                                <td>A4567</td>
+-                                <td>4566B</td>
+-                                <td>5000</td>
+-                                <td>1000</td>
+-                            </tr>
+-                            <tr>
+-                                <td>1246</td>
+-                                <td>B1246</td>
+-                                <td>1246B</td>
+-                                <td>8900</td>
+-                                <td>100</td>
+-                            </tr>
+-                            <tr>
+-                                <td>7894</td>
+-                                <td>C7894</td>
+-                                <td>7894C</td>
+-                                <td>12000</td>
+-                                <td>20</td>
++                                <!-- Data from backend API will be populated here -->
+                             </tr>
+                         </tbody>
+                     </table>
+@@ -481,7 +322,7 @@
+                 </div>
+ 
+                 <div class="table-container3">
+-                    <table class="inventory-table3">
++                    <table class="inventory-table3" id="productBatches">
+                         <thead>
+                             <tr>
+                                 <th>Batch ID</th>
+@@ -494,109 +335,7 @@
+                         </thead>
+                         <tbody>
+                             <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>04-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product B</td>
+-                                <td>12</td>
+-                                <td>04-20-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product C</td>
+-                                <td>11</td>
+-                                <td>04-18-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product D</td>
+-                                <td>15</td>
+-                                <td>04-29-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>05-16-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>02-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>01-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>12-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>11-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>04-13-2026</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>04-13-2024</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>04-13-2023</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>04-17-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Product A</td>
+-                                <td>10</td>
+-                                <td>08-13-2025</td>
+-                            </tr>
+-                            <tr>
+-                                <td>A123456</td>
+-                                <td>123123123123123</td>
+-                                <td>Tapos na</td>
+-                                <td>10</td>
+-                                <td>02-21-2002</td>
++                                <!-- Data from backend API will be populated here -->
+                             </tr>
+                         </tbody>
+                     </table>
+@@ -829,6 +568,7 @@
+         }
+ 
+     </script>
++<script src = "../static/scripts/inventory.js"></script>
+ </body>
+ 
+ </html>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2475a27f-bdda-49ef-a23f-69087ddf9ada\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/src/main/java/com/acds/inventory_management_system/model/Product.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/src/main/java/com/acds/inventory_management_system/model/Product.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/application.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/application.properties\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/static/styles/index.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/static/styles/index.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/static/styles/inventory.css\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/static/styles/inventory.css\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/index.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/index.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/inventory.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/inventory.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/application.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/application.properties\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/InventoryManagementSystemApplication.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/InventoryManagementSystemApplication.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/AdminController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/AdminController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/CustomerController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/CustomerController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/InventoryManagerController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/InventoryManagerController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/ProductBatchController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/ProductBatchController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/PurchaseOrderController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/PurchaseOrderController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/SalesOrderController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/SalesOrderController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/SupplierController.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/SupplierController.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Admin.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Admin.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Customer.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Customer.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/InventoryManager.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/InventoryManager.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Product.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Product.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/ProductBatch.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/ProductBatch.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/PurchaseOrder.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/PurchaseOrder.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/SalesOrder.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/SalesOrder.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Supplier.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Supplier.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/AdminRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/AdminRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/CustomerRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/CustomerRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/InventoryManagerRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/InventoryManagerRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/ProductBatchRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/ProductBatchRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/ProductRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/ProductRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/PurchaseOrderRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/PurchaseOrderRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/SalesOrderRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/SalesOrderRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/SupplierRepository.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/SupplierRepository.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/AdminService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/AdminService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/CustomerService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/CustomerService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/InventoryManagerService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/InventoryManagerService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/ProductBatchService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/ProductBatchService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/ProductService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/ProductService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/PurchaseOrderService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/PurchaseOrderService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/SalesOrderService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/SalesOrderService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/SupplierService.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/SupplierService.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/AdminServiceImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/AdminServiceImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/CustomerServiceImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/CustomerServiceImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/InventoryManagerImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/InventoryManagerImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/ProductBatchServiceImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/ProductBatchServiceImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/ProductServiceImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/ProductServiceImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/PurchaseOrderServiceImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/PurchaseOrderServiceImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/SalesOrderServiceImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/SalesOrderServiceImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/SupplierServiceImpl.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/SupplierServiceImpl.class\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/test-classes/com/acds/inventory_management_system/InventoryManagementSystemApplicationTests.class\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/test-classes/com/acds/inventory_management_system/InventoryManagementSystemApplicationTests.class\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"DatabaseLocalColorSettings\">\r\n    <colors>\r\n      <entry key=\"c04729ae-8739-41b4-a686-7dc35481e62e\" value=\"Blue\" />\r\n    </colors>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"CurrentFile\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 5\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2hRhFIfio7nx0YQ5CSIDluFeoaX\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"Application.InventoryManagementSystemApplication.executor\": \"Run\",\r\n    \"JUnit.InventoryManagementSystemApplicationTests.executor\": \"Run\",\r\n    \"JavaScript Debug.index.html.executor\": \"Run\",\r\n    \"JavaScript Debug.inventory.html.executor\": \"Run\",\r\n    \"RequestMappingsPanelOrder0\": \"0\",\r\n    \"RequestMappingsPanelOrder1\": \"1\",\r\n    \"RequestMappingsPanelWidth0\": \"75\",\r\n    \"RequestMappingsPanelWidth1\": \"75\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"Spring Boot.InventoryManagementSystemApplication.executor\": \"Run\",\r\n    \"git-widget-placeholder\": \"main\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Libraries\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"postgresql\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration default=\"true\" type=\"PythonConfigurationType\" factoryName=\"Python\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"Tox\" factoryName=\"Tox\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"docs\" factoryName=\"Docutils task\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"docutils_input_file\" value=\"\" />\r\n      <option name=\"docutils_output_file\" value=\"\" />\r\n      <option name=\"docutils_params\" value=\"\" />\r\n      <option name=\"docutils_task\" value=\"\" />\r\n      <option name=\"docutils_open_in_browser\" value=\"false\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"docs\" factoryName=\"Sphinx task\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"docutils_input_file\" value=\"\" />\r\n      <option name=\"docutils_output_file\" value=\"\" />\r\n      <option name=\"docutils_params\" value=\"\" />\r\n      <option name=\"docutils_task\" value=\"\" />\r\n      <option name=\"docutils_open_in_browser\" value=\"false\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"IMS_DB.sql\" type=\"DatabaseScript\" editBeforeRun=\"true\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <script-file value=\"$PROJECT_DIR$/IMS_DB.sql\" />\r\n      <script-mode>FILE</script-mode>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"index.html\" type=\"JavascriptDebugType\" temporary=\"true\" nameIsGenerated=\"true\" uri=\"http://localhost:63342/Inventory-Management-System/inventory-management-system/src/main/resources/templates/index.html\" useBuiltInWebServerPort=\"true\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"InventoryManagementSystemApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" nameIsGenerated=\"true\">\r\n      <option name=\"FRAME_DEACTIVATION_UPDATE_POLICY\" value=\"UpdateClassesAndResources\" />\r\n      <module name=\"inventory-management-system\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"com.acds.inventory_management_system.InventoryManagementSystemApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Database Script.IMS_DB.sql\" />\r\n        <item itemvalue=\"JavaScript Debug.index.html\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79\" />\r\n        <option value=\"bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2475a27f-bdda-49ef-a23f-69087ddf9ada\" name=\"Changes\" comment=\"\" />\r\n      <created>1717562694331</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1717562694331</updated>\r\n      <workItem from=\"1717596448690\" duration=\"7127000\" />\r\n      <workItem from=\"1717603866167\" duration=\"15196000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4a03c801e6c8b52c739b2619263d98896fb71609)
++++ b/.idea/workspace.xml	(date 1717682336542)
+@@ -5,54 +5,17 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="2475a27f-bdda-49ef-a23f-69087ddf9ada" name="Changes" comment="">
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/src/main/java/com/acds/inventory_management_system/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/src/main/java/com/acds/inventory_management_system/model/Product.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/src/main/resources/application.properties" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/src/main/resources/static/styles/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/src/main/resources/static/styles/index.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/src/main/resources/static/styles/inventory.css" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/src/main/resources/static/styles/inventory.css" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/index.html" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
++      <change afterPath="$PROJECT_DIR$/inventory-management-system/src/main/java/com/acds/inventory_management_system/config/CorsConfig.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/inventory-management-system/src/main/resources/static/scripts/index.js" beforeDir="false" />
+       <change beforePath="$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/inventory.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/application.properties" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/InventoryManagementSystemApplication.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/InventoryManagementSystemApplication.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/AdminController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/CustomerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/CustomerController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/InventoryManagerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/InventoryManagerController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/ProductBatchController.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/ProductBatchController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/PurchaseOrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/PurchaseOrderController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/SalesOrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/SalesOrderController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/SupplierController.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/controller/SupplierController.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Admin.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Customer.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Customer.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/InventoryManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/InventoryManager.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Product.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Product.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/ProductBatch.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/ProductBatch.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/PurchaseOrder.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/PurchaseOrder.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/SalesOrder.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/SalesOrder.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Supplier.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/model/Supplier.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/AdminRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/AdminRepository.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/CustomerRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/CustomerRepository.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/InventoryManagerRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/InventoryManagerRepository.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/ProductBatchRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/ProductBatchRepository.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/ProductRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/ProductRepository.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/PurchaseOrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/PurchaseOrderRepository.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/SalesOrderRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/SalesOrderRepository.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/SupplierRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/repository/SupplierRepository.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/AdminService.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/AdminService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/CustomerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/CustomerService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/InventoryManagerService.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/InventoryManagerService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/ProductBatchService.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/ProductBatchService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/ProductService.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/ProductService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/PurchaseOrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/PurchaseOrderService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/SalesOrderService.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/SalesOrderService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/SupplierService.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/SupplierService.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/AdminServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/AdminServiceImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/CustomerServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/CustomerServiceImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/InventoryManagerImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/InventoryManagerImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/ProductBatchServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/ProductBatchServiceImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/ProductServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/ProductServiceImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/PurchaseOrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/PurchaseOrderServiceImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/SalesOrderServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/SalesOrderServiceImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/SupplierServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/com/acds/inventory_management_system/service/impl/SupplierServiceImpl.class" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/test-classes/com/acds/inventory_management_system/InventoryManagementSystemApplicationTests.class" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/test-classes/com/acds/inventory_management_system/InventoryManagementSystemApplicationTests.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/static/scripts/index.js" beforeDir="false" />
++      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/templates/index.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/templates/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/templates/inventory.html" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/templates/purchase.html" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/templates/purchase.html" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -63,56 +26,67 @@
+     <colors>
+       <entry key="c04729ae-8739-41b4-a686-7dc35481e62e" value="Blue" />
+     </colors>
++  </component>
++  <component name="FileTemplateManagerImpl">
++    <option name="RECENT_TEMPLATES">
++      <list>
++        <option value="Class" />
++      </list>
++    </option>
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+   </component>
+   <component name="ProblemsViewState">
++    <option name="autoscrollToSource" value="true" />
+     <option name="selectedTabId" value="CurrentFile" />
+   </component>
+   <component name="ProjectColorInfo">{
+   &quot;associatedIndex&quot;: 5
+ }</component>
+   <component name="ProjectId" id="2hRhFIfio7nx0YQ5CSIDluFeoaX" />
++  <component name="ProjectLevelVcsManager">
++    <ConfirmationsSetting value="2" id="Add" />
++  </component>
+   <component name="ProjectViewState">
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "Application.InventoryManagementSystemApplication.executor": "Run",
+-    "JUnit.InventoryManagementSystemApplicationTests.executor": "Run",
+-    "JavaScript Debug.index.html.executor": "Run",
+-    "JavaScript Debug.inventory.html.executor": "Run",
+-    "RequestMappingsPanelOrder0": "0",
+-    "RequestMappingsPanelOrder1": "1",
+-    "RequestMappingsPanelWidth0": "75",
+-    "RequestMappingsPanelWidth1": "75",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "Spring Boot.InventoryManagementSystemApplication.executor": "Run",
+-    "git-widget-placeholder": "main",
+-    "ignore.virus.scanning.warn.message": "true",
+-    "kotlin-language-version-configured": "true",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Libraries",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "preferences.pluginManager",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;Application.InventoryManagementSystemApplication.executor&quot;: &quot;Run&quot;,
++    &quot;JUnit.InventoryManagementSystemApplicationTests.executor&quot;: &quot;Run&quot;,
++    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
++    &quot;JavaScript Debug.inventory.html.executor&quot;: &quot;Run&quot;,
++    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
++    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
++    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
++    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;Spring Boot.InventoryManagementSystemApplication.executor&quot;: &quot;Run&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   },
+-  "keyToStringList": {
+-    "DatabaseDriversLRU": [
+-      "postgresql"
++  &quot;keyToStringList&quot;: {
++    &quot;DatabaseDriversLRU&quot;: [
++      &quot;postgresql&quot;
+     ]
+   }
+-}]]></component>
+-  <component name="RunManager">
++}</component>
++  <component name="RunManager" selected="Spring Boot.InventoryManagementSystemApplication">
+     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+       <module name="Inventory-Management-System" />
+       <option name="ENV_FILES" value="" />
+@@ -212,8 +186,8 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="JavaScript Debug.index.html" />
+         <item itemvalue="Database Script.IMS_DB.sql" />
+-        <item itemvalue="JavaScript Debug.index.html" />
+       </list>
+     </recent_temporary>
+   </component>
+@@ -234,7 +208,8 @@
+       <option name="presentableId" value="Default" />
+       <updated>1717562694331</updated>
+       <workItem from="1717596448690" duration="7127000" />
+-      <workItem from="1717603866167" duration="15196000" />
++      <workItem from="1717603866167" duration="21915000" />
++      <workItem from="1717663791787" duration="10146000" />
+     </task>
+     <servers />
+   </component>
+Index: .idea/vcs.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/vcs.xml b/.idea/vcs.xml
+new file mode 100644
+--- /dev/null	(date 1717663798139)
++++ b/.idea/vcs.xml	(date 1717663798139)
+@@ -0,0 +1,6 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="VcsDirectoryMappings">
++    <mapping directory="" vcs="Git" />
++  </component>
++</project>
+\ No newline at end of file
+Index: inventory-management-system/src/main/java/com/acds/inventory_management_system/config/CorsConfig.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/inventory-management-system/src/main/java/com/acds/inventory_management_system/config/CorsConfig.java b/inventory-management-system/src/main/java/com/acds/inventory_management_system/config/CorsConfig.java
+new file mode 100644
+--- /dev/null	(date 1717665610020)
++++ b/inventory-management-system/src/main/java/com/acds/inventory_management_system/config/CorsConfig.java	(date 1717665610020)
+@@ -0,0 +1,17 @@
++package com.acds.inventory_management_system.config;
++
++import org.springframework.context.annotation.Configuration;
++import org.springframework.web.servlet.config.annotation.CorsRegistry;
++import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
++
++@Configuration
++public class CorsConfig implements WebMvcConfigurer {
++
++    @Override
++    public void addCorsMappings(CorsRegistry registry) {
++        registry.addMapping("/api/**") // Configure the path pattern for which CORS is enabled
++                .allowedOrigins("http://localhost:63342") // Allow requests from this origin
++                .allowedMethods("GET", "POST", "PUT", "DELETE") // Allow these HTTP methods
++                .allowedHeaders("*"); // Allow all headers
++    }
++}
+\ No newline at end of file
+Index: .idea/dataSources.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dataSources.xml b/.idea/dataSources.xml
+new file mode 100644
+--- /dev/null	(date 1717663876067)
++++ b/.idea/dataSources.xml	(date 1717663876067)
+@@ -0,0 +1,19 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
++    <data-source source="LOCAL" name="IMS_DB@localhost" uuid="96702ab8-21cb-4333-8b74-9e6555c7251d">
++      <driver-ref>postgresql</driver-ref>
++      <synchronize>true</synchronize>
++      <imported>true</imported>
++      <remarks>$PROJECT_DIR$/inventory-management-system/src/main/resources/application.properties</remarks>
++      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
++      <jdbc-url>jdbc:postgresql://localhost:5432/IMS_DB</jdbc-url>
++      <jdbc-additional-properties>
++        <property name="com.intellij.clouds.kubernetes.db.host.port" />
++        <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />
++        <property name="com.intellij.clouds.kubernetes.db.container.port" />
++      </jdbc-additional-properties>
++      <working-dir>$ProjectFileDir$</working-dir>
++    </data-source>
++  </component>
++</project>
+\ No newline at end of file
