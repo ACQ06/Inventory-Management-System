@@ -1,5 +1,5 @@
 document.querySelector(".button-login").addEventListener("click", function() {
-    window.location.href = "user-management.html";
+    window.location.href = "/userManagement";
   });
 
 document.querySelector(".logo").addEventListener("click", function() {
