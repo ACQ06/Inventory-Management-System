@@ -86,9 +86,8 @@
                     <h6>Stock Count</h6>
                     <div class="button-group">
                         <input type="text" id="CategorySearch" class="hidden" placeholder="Search Category..."
-                            onkeyup="searchStock('CategorySearch', 'inventory-table')">
-                        <button class="material-icons button-icon"
-                            onclick="toggleSearchInput('CategorySearch')">search</button>
+                               onkeyup="searchStock()">
+                        <button class="material-icons button-icon" onclick="toggleSearchInput('CategorySearch')">search</button>
                         <button class="filter-button" onclick="sortTable()">
                             <span class="material-icons">arrow_upward</span>
                             <span class="material-icons">arrow_downward</span>
@@ -113,73 +112,6 @@
                     </table>
                 </div>
             </div>
-
-            <script>
-                // Function to search for a specific keyword in product names
-                function searchStock() {
-                    var input, filter, table, tr, td, i, j, txtValue;
-                    input = document.getElementById("CategorySearch");
-                    filter = input.value.toUpperCase();
-                    table = document.querySelector(".inventory-table");
-                    tr = table.getElementsByTagName("tr");
-
-                    for (i = 1; i < tr.length; i++) {
-                        tr[i].style.display = "none";
-                        td = tr[i].getElementsByTagName("td");
-                        for (j = 0; j < td.length; j++) {
-                            if (td[j]) {
-                                txtValue = td[j].textContent || td[j].innerText;
-                                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                                    tr[i].style.display = "";
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                // Function to sort the table based on the "Remaining" column
-                function sortTable() {
-                    var table, rows, switching, i, x, y, shouldSwitch, switchCount = 0;
-                    table = document.querySelector(".inventory-table");
-                    switching = true;
-                    var direction = "asc"; 
-
-                    while (switching) {
-                        switching = false;
-                        rows = table.rows;
-                        
-                        for (i = 1; i < (rows.length - 1); i++) {
-                            shouldSwitch = false;
-                            x = rows[i].getElementsByTagName("TD")[1];
-                            y = rows[i + 1].getElementsByTagName("TD")[1];
-                            
-                            if (direction === "asc") {
-                                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
-                                    shouldSwitch = true;
-                                    break;
-                                }
-                            } else if (direction === "desc") {
-                                if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
-                                    shouldSwitch = true;
-                                    break;
-                                }
-                            }
-                        }
-                        
-                        if (shouldSwitch) {
-                            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                            switching = true;
-                            switchCount++;      
-                        } else {
-                            if (switchCount === 0 && direction === "asc") {
-                                direction = "desc";
-                                switching = true;
-                            }
-                        }
-                    }
-                }
-            </script>
 
             <div class="shape shape-rectangle2">
                 <div class="batch-header">
@@ -315,7 +247,6 @@
                 window.onload = function () {
                 };
 
-
                 function enableProductEditing() {
                     const actionHeader = document.querySelector('.inventory-table2 .action-header');
                     const rows = document.querySelectorAll('.inventory-table2 tbody tr');
@@ -342,43 +273,7 @@
                 }
 
 
-                function editProduct(button) {
-                    const row = button.closest('tr');
-                    const cells = row.querySelectorAll('td:not(.action-buttons)'); // Exclude the action buttons cell
-
-                    if (row.classList.contains('editing')) {
-                        // Save changes
-                        cells.forEach(cell => {
-                            const input = cell.querySelector('input');
-                            if (input) {
-                                cell.textContent = input.value;
-                            }
-                        });
-                        button.textContent = 'Edit';
-                        row.classList.remove('editing');
-                    } else {
-                        // Enable editing
-                        cells.forEach(cell => {
-                            const text = cell.textContent;
-                            const input = document.createElement('input');
-                            input.style.width = '100%'; // Ensure input width is 100% of the cell
-                            input.value = text;
-                            cell.textContent = '';
-                            cell.appendChild(input);
-                        });
-                        button.textContent = 'Save';
-                        row.classList.add('editing');
-                    }
-                }
-
-                function deleteProduct(button) {
-                    const row = button.closest('tr');
-                    row.remove();
-                }
-
-
             </script>
-
 
             <div class="shape shape-rectangle3">
                 <div class="batch-header">
@@ -423,7 +318,7 @@
                 <div class="modal-content">
                     <span class="close" onclick="closeModal('batchModal')">&times;</span>
                     <h2>Add Batch</h2>
-                    <form onsubmit="event.preventDefault(); addBatch(); addProduct();">
+                    <form onsubmit="event.preventDefault(); addBatch();">
                         <label for="productID">Product ID:</label>
                         <input type="text" id="productID" name="productID" required>
                         <label for="productName">Product Name:</label>
@@ -482,56 +377,7 @@
             });
         }
 
-        function addBatch() {
-            const batchID = document.getElementById('batchId').value;
-            const productID = document.getElementById('productID').value;
-            const productName = document.getElementById('productName').value;
-            const quantityColumn = document.getElementById('quantityColumn').value;
-            const expirationDate = formatDate(document.getElementById('expirationDate').value);
 
-            const batch = {
-                batchID: batchID,
-                productID: productID,
-                productName: productName,
-                quantityColumn: quantityColumn,
-                expirationDate: expirationDate
-            };
-
-            let batches = JSON.parse(localStorage.getItem('batches')) || [];
-
-            batches.push(batch);
-
-            localStorage.setItem('batches', JSON.stringify(batches));
-
-            location.reload(); // Reloading the page might not be necessary in all cases
-        }
-
-        function formatDate(dateString) {
-            const date = new Date(dateString);
-
-            const month = (date.getMonth() + 1).toString().padStart(2, '0');
-            const day = date.getDate().toString().padStart(2, '0');
-            const year = date.getFullYear();
-
-            return `${month}-${day}-${year}`;
-        }
-        window.onload = function () {
-            let batches = JSON.parse(localStorage.getItem('batches')) || [];
-            const tableBody = document.querySelector('.inventory-table3 tbody');
-            batches.forEach(function (batch) {
-                const newRow = tableBody.insertRow();
-                const cell1 = newRow.insertCell(0);
-                const cell2 = newRow.insertCell(1);
-                const cell3 = newRow.insertCell(2);
-                const cell4 = newRow.insertCell(3);
-                const cell5 = newRow.insertCell(4);
-                cell1.innerText = batch.batchID;
-                cell2.innerText = batch.productID;
-                cell3.innerText = batch.productName;
-                cell4.innerText = batch.quantityColumn;
-                cell5.innerText = batch.expirationDate;
-            });
-        };
 
         function sortTableByExpiration() {
             const table = document.querySelector('.inventory-table3 tbody');
