@@ -9,7 +9,6 @@
         <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0">
-            
             <link rel="preconnect" href="https://fonts.googleapis.com">
             <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
          <title>Template</title>
@@ -162,7 +161,7 @@
 
                                         return result;
                                         }
-                                        purchaseID.innerHTML = generateString(5);
+                                        purchaseID.innerHTML = generateString(10);
                                         
 
                                     </script>
@@ -183,11 +182,11 @@
                                         <option value="To Receive">3</option>
                                         <option value="Completed">4</option>
                                     </select>
-<br>
+                                    <br>
                                     <label for="manager" >
                                         Manager:  
                                         </label>
-                                        <input type="text" id="manager" size="15vw"placeholder="Input manager name">
+                                        <input type="text" id="manager" placeholder="Input manager name">
                                         <br>
                                 
                             </div>
@@ -205,9 +204,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                
-                            </tr>
+                            
                         </tbody> 
                     </table>
 
@@ -233,9 +230,8 @@
                         </div>
                         <div class="column">
                             <div class="row">
-                                <div class="column">Total Amount:</div>
-                                <input type="text" id="total-amount" size="10vw" placeholder="PHP">
-                                
+                                <div class="column">Total Amount:₱ </div>
+                                <div class="total-column" id="total-amount"><strong></strong></div>
                             </div>
                         </div>
                     </div>
@@ -260,8 +256,11 @@
                         <h5 style="font-size:30px; float: right"> <span>2024</span></h5>
                     </div>
                     
+                    <div class = "history"> 
+                        <!-- empty space before table for history -->
+                    </div>
                     <div class="scrollable-history">
-                    <table> 
+                    <table>
                         <tr>
                             <th>Date </th>
                             <th>User </th>
@@ -278,7 +277,6 @@
                             <td>Paid</td>
                             <td>PHP 10,000.00</td>
                         </tr>
-
                     </table>
                 </div>
                     <div class="total-button">
@@ -287,7 +285,8 @@
                         </div>
                         <div class="column">
                             <div class="row">
-                                
+                                <!-- <div class="column"><bold>Total Sales:</bold></div>
+                                <div class="total-column" ><strong>PHP 10,000.00</strong></div> --> 
                             </div>
                         </div>
                     </div>
@@ -296,8 +295,8 @@
                             <div class="column-history">
                                 <button class = "button-Back">Back</button></div>
                             <div class="column-history">
-                           
-                            <div class="column-history">
+                                <button class="button-Delete" onclick="deleteRow()" display = "none">Delete Order</button>
+                                <div class="column-history">
                                 <button class = "button-Next">Next</button></div>
                             
                         </div>
