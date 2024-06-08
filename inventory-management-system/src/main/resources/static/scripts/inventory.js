@@ -1,14 +1,3 @@
-// Fetch and display all necessary data on page load
-window.onload = () => {
-    DisplayData();
-    fetchAndDisplayStocks();
-};
-
-// Variables to manage state
-let productsData = [];
-let isAscending = true;
-
-// Function to display data fetched from API
 async function DisplayData() {
     try {
         const [supplierData, productData, productBatchData] = await Promise.all([
@@ -52,10 +41,19 @@ function populateProductsTable(productData) {
         const row = productsTableBody.insertRow();
         row.dataset.productId = item.id; // Set the data-product-id attribute to the product ID
         const cells = [item.id, item.name, item.supplierId, item.price, item.quantity];
+
         cells.forEach((content, index) => row.insertCell(index).textContent = content);
+
+        // Add action cell for edit/delete buttons
+        const actionCell = row.insertCell(-1);
+        actionCell.classList.add('action-buttons');
+        actionCell.classList.add('hidden');
+        actionCell.innerHTML = `
+            <button class="edit-btn" onclick="enableEditing(this.parentElement.parentElement, ${item.id})">Edit</button>
+            <button class="delete-btn" onclick="deleteProduct(${item.id})">Delete</button>
+        `;
     });
 }
-
 
 // Function to populate product batches table
 function populateProductBatchesTable(productBatchData, productMap) {
@@ -71,232 +69,329 @@ function populateProductBatchesTable(productBatchData, productMap) {
     });
 }
 
-// Function to fetch and display stocks
-async function fetchAndDisplayStocks() {
-    try {
-        const response = await fetch('http://localhost:8080/api/products');
-        productsData = await response.json();
-        displayStocks(productsData);
-    } catch (error) {
-        console.error('Error fetching stock data:', error);
+function enableProductEditing() {
+    const actionHeader = document.querySelector('.inventory-table2 .action-header');
+    const rows = document.querySelectorAll('.inventory-table2 tbody tr');
+    const editButton = document.getElementById('ProductListEditButton');
+
+    // Toggle the visibility of the action header
+    if (actionHeader) {
+        actionHeader.classList.toggle('hidden');
     }
-}
 
-// Function to display stocks in the table
-function displayStocks(data) {
-    const tableBody = document.getElementById('stocks').getElementsByTagName('tbody')[0];
-    tableBody.innerHTML = '';
-
-    data.forEach(product => {
-        const row = tableBody.insertRow();
-        const availability = product.quantity === 0 ? 'Out of stock' : product.quantity <= 10 ? 'Low stock count' : 'Available';
-        const cells = [product.name, product.quantity, availability];
-        cells.forEach((content, index) => {
-            const cell = row.insertCell(index);
-            cell.textContent = content;
-        });
+    rows.forEach(row => {
+        let actionCell = row.querySelector('.action-buttons');
+        if (!actionCell) {
+            actionCell = document.createElement('td');
+            actionCell.classList.add('action-buttons');
+            actionCell.innerHTML = `
+                <button class="edit-btn" onclick="editProduct(this)">Edit</button>
+                <button class="delete-btn" onclick="deleteProduct(this)">Delete</button>
+            `;
+            row.appendChild(actionCell);
+        }
+        actionCell.classList.toggle('hidden', actionHeader && actionHeader.classList.contains('hidden'));
     });
 }
 
-// Function to sort table by the "Remaining" column
-function sortTable() {
-    var table, rows, switching, i, x, y, shouldSwitch, switchCount = 0;
-    table = document.querySelector(".inventory-table");
-    switching = true;
-    var direction = "asc";
+function editProduct(button) {
+    const productsTableBody = document.getElementById('products').getElementsByTagName('tbody')[0];
+    const rows = productsTableBody.querySelectorAll('tr');
 
-    while (switching) {
-        switching = false;
-        rows = table.rows;
+    rows.forEach(row => {
+        // If action cell doesn't exist, create it
+        let actionCell = row.querySelector('.action-buttons');
+        if (!actionCell) {
+            actionCell = document.createElement('td');
+            actionCell.classList.add('action-buttons');
+            row.appendChild(actionCell);
 
-        for (i = 1; i < (rows.length - 1); i++) {
-            shouldSwitch = false;
-            x = rows[i].getElementsByTagName("TD")[1];
-            y = rows[i + 1].getElementsByTagName("TD")[1];
+            // Create Edit button
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.classList.add('edit-btn');
+            editButton.onclick = () => enableEditing(row, row.dataset.productId);
+            actionCell.appendChild(editButton);
 
-            if (direction === "asc") {
-                if (parseInt(x.innerHTML) > parseInt(y.innerHTML)) {
-                    shouldSwitch = true;
-                    break;
-                }
-            } else if (direction === "desc") {
-                if (parseInt(x.innerHTML) < parseInt(y.innerHTML)) {
-                    shouldSwitch = true;
-                    break;
-                }
-            }
+            // Create Delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.classList.add('delete-btn');
+            deleteButton.onclick = () => deleteProduct(row.dataset.productId);
+            actionCell.appendChild(deleteButton);
         }
 
-        if (shouldSwitch) {
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchCount++;
-        } else {
-            if (switchCount === 0 && direction === "asc") {
-                direction = "desc";
-                switching = true;
+        actionCell.classList.remove('hidden');
+    });
+}
+
+
+// Function to enable editing of a product row
+function enableEditing(row, productId) {
+    const cells = row.querySelectorAll('td:not(:last-child)');
+    const editButton = row.querySelector('.edit-btn');
+
+    if (row.classList.contains('editing')) {
+        // Save changes
+        const updatedProduct = {};
+        cells.forEach((cell, index) => {
+            const input = cell.querySelector('input');
+            if (input) {
+                const value = input.value;
+                cell.textContent = value;
+
+                // Map the input values back to the product properties
+                switch (index) {
+                    case 0: updatedProduct.id = value; break;
+                    case 1: updatedProduct.name = value; break;
+                    case 2: updatedProduct.supplierId = value; break;
+                    case 3: updatedProduct.price = parseFloat(value); break;
+                    case 4: updatedProduct.quantity = parseInt(value); break;
+                }
             }
-        }
-    }
-}
-
-// Optional: Toggle search input visibility
-function toggleSearchInput(inputId) {
-    const input = document.getElementById(inputId);
-    if (input.classList.contains('hidden')) {
-        input.classList.remove('hidden');
-        input.focus();
-    } else {
-        input.classList.add('hidden');
-    }
-}
-
-// Function to add a new product
-async function addProduct() {
-    const prodName = document.getElementById('prodName').value;
-    const supplierID = document.getElementById('supplierID').value;
-    const priceColumn = document.getElementById('priceColumn').value;
-    const quantityCol = document.getElementById('quantityCol').value;
-
-    const newProduct = {
-        supplierId: supplierID,
-        name: prodName,
-        price: parseFloat(priceColumn), // Ensure price is a number
-        quantity: parseInt(quantityCol) // Ensure quantity is a number
-    };
-
-    try {
-        const response = await fetch('http://localhost:8080/api/products', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newProduct)
         });
 
-        if (response.ok) {
-            console.log('Product added successfully!');
-            window.location.href = "/inventory"; // Redirect or refresh the page
-        } else {
-            console.error('Request failed with status:', response.status);
-        }
-    } catch (error) {
-        console.error('Error adding product:', error);
-    }
-}
-
-async function updateProduct(productId, updatedData) {
-    try {
-        const response = await fetch(`http://localhost:8080/api/products/${productId}`, {
+        // Send updated data to backend API
+        fetch(`http://localhost:8080/api/products/${productId}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(updatedData)
-        });
-
-        if (!response.ok) {
-            throw new Error(`Failed to update product with ID ${productId}`);
-        }
-    } catch (error) {
-        throw error;
-    }
-}
-
-
-
-function editProduct(button) {
-    const row = button.closest('tr');
-    const productId = row.dataset.productId; // Retrieve product ID from data attribute
-
-    const cells = row.querySelectorAll('td:not(.action-buttons)'); // Exclude the action buttons cell
-
-    if (row.classList.contains('editing')) {
-        // Save changes
-        const updatedProduct = {}; // Object to store updated product data
-        cells.forEach(cell => {
-            const input = cell.querySelector('input');
-            if (input) {
-                const columnName = cell.dataset.column; // Get the column name from data-column attribute
-                updatedProduct[columnName] = input.value; // Update the corresponding property in the updatedProduct object
-                cell.textContent = input.value;
-            }
-        });
-
-        // Make PUT request to update the product
-        updateProduct(productId, updatedProduct)
-            .then(() => {
-                console.log('Product updated successfully!');
-                button.textContent = 'Edit';
-                row.classList.remove('editing');
+            body: JSON.stringify(updatedProduct)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Product updated successfully:', data);
             })
-            .catch(error => {
-                console.error('Error updating product:', error);
-            });
+            .catch(error => console.error('Error updating product:', error));
+
+        // Change button text back to 'Edit'
+        editButton.textContent = 'Edit';
+        row.classList.remove('editing');
     } else {
         // Enable editing
         cells.forEach(cell => {
             const text = cell.textContent;
             const input = document.createElement('input');
-            input.style.width = '100%'; // Ensure input width is 100% of the cell
             input.value = text;
             cell.textContent = '';
             cell.appendChild(input);
         });
+
+        // Change button text to 'Save'
+        editButton.textContent = 'Save';
+        row.classList.add('editing');
+    }
+}
+
+
+// working
+async function deleteBatch(button) {
+    try {
+        const row = button.closest('tr');
+        const batchId = row.cells[0].textContent;
+
+        const response  = await fetch(`http://localhost:8080/api/productBatches/${batchId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (response.ok){
+            console.log('Batch deleted succesfully from the database!');
+            row.remove(); //remove from the table
+        } else {
+            console.error('Error deleting batch:', response.statusText);
+        }
+    } catch (error) {
+        console.error('Error deleting the bacth:' , error)
+    }
+}
+function deleteProduct(productId) {
+    fetch(`http://localhost:8080/api/products/${productId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => {
+            if (response.ok) {
+                document.querySelector(`tr[data-product-id="${productId}"]`).remove();
+                console.log('Product deleted successfully');
+            } else {
+                console.error('Error deleting product:', response.statusText);
+            }
+        })
+        .catch(error => console.error('Error deleting product:', error));
+}
+
+
+// Function to add a new product
+function addProduct() {
+    const prodName = document.getElementById('prodName').value.trim();
+    const supplierID = document.getElementById('supplierID').value.trim();
+    const price = document.getElementById('priceColumn').value.trim();
+    const quantity = document.getElementById('quantityCol').value.trim();
+
+    // Validate input data
+    if (!prodName || !supplierID || isNaN(price) || isNaN(quantity)) {
+        console.error('Invalid input data. Please check the form fields.');
+        return;
+    }
+
+    const newProduct = {
+        name: prodName,
+        supplierId: parseInt(supplierID),
+        price: parseFloat(price),
+        quantity: parseInt(quantity)
+    };
+
+    console.log('Sending new product data:', newProduct); // Log the data being sent
+
+    fetch('http://localhost:8080/api/products', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newProduct)
+    })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(error => {
+                    throw new Error(`Error ${response.status}: ${error.message}`);
+                });
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Product added successfully:', data);
+            // Add the new product to the table
+            const productTable = document.querySelector('#products tbody');
+            const newRow = productTable.insertRow();
+            newRow.dataset.productId = data.id;
+
+            const cells = [data.id, data.name, data.supplierId, data.price, data.quantity];
+            cells.forEach((content, index) => newRow.insertCell(index).textContent = content);
+
+            // Add the edit button to the new row
+            const actionCell = newRow.insertCell(-1);
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.classList.add('edit-btn');
+            editButton.onclick = () => enableEditing(newRow, data.id);
+            actionCell.appendChild(editButton);
+
+            closeModal('productModal');
+        })
+        .catch(error => console.error('Error adding product:', error.message));
+}
+
+
+// Function to add a new batch
+function addBatch() {
+    const productID = document.getElementById('productID').value;
+    const quantity = document.getElementById('quantityColumn').value;
+    // Get the expiration date from the input field
+    const expirationDateInput = document.getElementById('expirationDate');
+    const expirationDateValue = expirationDateInput.value;
+
+    // Parse the expiration date input value into a Date object
+    const expirationDate = new Date(expirationDateValue);
+
+    // Get the timestamp (milliseconds since January 1, 1970)
+    const expirationTimestamp = expirationDate.getTime();
+
+    console.log(expirationTimestamp);
+
+
+    const newBatch = {
+        productId: parseInt(productID),
+        expirationDate: expirationDate,
+        quantity: parseInt(quantity)
+    };
+
+    fetch('http://localhost:8080/api/productBatches', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newBatch)
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Batch added successfully:', data);
+            DisplayData();
+            // Optionally, refresh the product batches table or perform other UI updates here
+            // For example: DisplayData(); // If DisplayData() also fetches and updates product batches
+            closeModalBatch('batchModal');
+
+        })
+        .catch(error => console.error('Error adding batch:', error));
+}
+
+function toggleSearchInput(inputId) {
+    var input = document.getElementById(inputId);
+    input.classList.toggle('hidden');
+}
+
+// Function for edit button
+function enableBatchEditing() {
+    const actionHeader = document.querySelector('.inventory-table3 .action-header');
+    const rows = document.querySelectorAll('.inventory-table3 tbody tr');
+
+    if (actionHeader.classList.contains('hidden')) {
+        actionHeader.classList.remove('hidden');
+        rows.forEach(row => {
+            const actionCell = row.insertCell(-1);
+            const editButton = document.createElement('button');
+            editButton.textContent = 'Edit';
+            editButton.classList.add('edit-btn');
+            editButton.onclick = () => editBatch(row);
+            actionCell.appendChild(editButton);
+
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = 'Delete';
+            deleteButton.classList.add('delete-btn');
+            deleteButton.onclick = () => deleteBatch(row);
+            actionCell.appendChild(deleteButton);
+        });
+    } else {
+        actionHeader.classList.add('hidden');
+        rows.forEach(row => row.deleteCell(-1));
+    }
+}
+
+function editBatch(row) {
+    const cells = row.querySelectorAll('td:not(:last-child)');
+    const button = row.querySelector('.edit-btn');
+
+    if (row.classList.contains('editing')) {
+        // Save changes
+        const inputs = row.querySelectorAll('input');
+        inputs.forEach((input, index) => {
+            const cell = cells[index];
+            cell.textContent = input.value;
+        });
+
+        // Change button text back to 'Edit'
+        button.textContent = 'Edit';
+        row.classList.remove('editing');
+    } else {
+        // Enable editing
+        cells.forEach(cell => {
+            const text = cell.textContent;
+            const input = document.createElement('input');
+            input.value = text;
+            cell.textContent = '';
+            cell.appendChild(input);
+        });
+
+        // Change button text to 'Save'
         button.textContent = 'Save';
         row.classList.add('editing');
     }
 }
 
-async function addBatch() {
-    try {
-        // Retrieve form input values
-        const productID = document.getElementById('productID').value;
-        const quantityColumn = document.getElementById('quantityColumn').value;
-        const expirationDate = document.getElementById('expirationDate').value;
-
-        // Validate expiration date format (optional)
-        // You can add logic here to ensure the expiration date is in the expected format (e.g., YYYY-MM-DD)
-
-        // Find the latest batch ID (assuming backend logic retrieves and increments it)
-        // This part doesn't require a separate API call on the frontend
-        let latestBatchID = null; // Replace with logic to access the retrieved max ID on the backend
-
-        // Create the batch object with the incremented ID
-        const batch = {
-            id: latestBatchID + 1, // Use the incremented ID for "id" property
-            productId: productID,
-            expiration: expirationDate,
-            quantity: parseInt(quantityColumn), // Ensure quantity is a number
-        };
-
-        // Perform the POST request to add the batch
-        const addBatchResponse = await fetch('http://localhost:8080/api/productBatches', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(batch),
-        });
-
-        if (addBatchResponse.ok) {
-            console.log('Batch added successfully!');
-            // ... update local storage or UI if needed ...
-            // Consider redirecting to the inventory page after successful addition:
-            // window.location.href = "/inventory";
-        } else {
-            console.error('Failed to add batch:', addBatchResponse.status);
-        }
-    } catch (error) {
-        console.error('Error adding batch:', error);
-    }
-}
 
 
-
-
-
-
-
-
-
-
-
+DisplayData();

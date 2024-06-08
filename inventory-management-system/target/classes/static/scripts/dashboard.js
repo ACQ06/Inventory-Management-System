@@ -55,7 +55,7 @@ function populateTransactionTable() {
                     const transactionID = item.id;
                     const userID = item.managerId;
                     const userName = getManagerName(userID);
-                    const transactionDate = item.date;
+                    const transactionDate = item.date;x``
 
                     // Create a new row (tr element)
                     const row = document.createElement('tr');

@@ -1,0 +1,115 @@
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2475a27f-bdda-49ef-a23f-69087ddf9ada\" name=\"Changes\" comment=\"\">\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/dataSources.local.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/dataSources.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_06_2024_9_58_pm_[Changes]/shelved.patch\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_06_2024_9_58_pm__Changes_.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/static/scripts/inventory.js\" afterDir=\"false\" />\r\n      <change afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/static/scripts/inventory.js\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/application.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/application.properties\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/inventory.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/inventory.html\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/application.properties\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/application.properties\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/inventory-management-system/target/classes/templates/inventory.html\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/inventory-management-system/target/classes/templates/inventory.html\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"JavaScript File\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"ProblemsViewState\">\r\n    <option name=\"selectedTabId\" value=\"DEPENDENCY_CHECKER_PROBLEMS_TAB\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 5\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2hRhFIfio7nx0YQ5CSIDluFeoaX\" />\r\n  <component name=\"ProjectLevelVcsManager\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ASKED_SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"Application.InventoryManagementSystemApplication.executor\": \"Run\",\r\n    \"JUnit.InventoryManagementSystemApplicationTests.executor\": \"Run\",\r\n    \"JavaScript Debug.index.html.executor\": \"Run\",\r\n    \"JavaScript Debug.inventory.html.executor\": \"Run\",\r\n    \"RequestMappingsPanelOrder0\": \"0\",\r\n    \"RequestMappingsPanelOrder1\": \"1\",\r\n    \"RequestMappingsPanelWidth0\": \"75\",\r\n    \"RequestMappingsPanelWidth1\": \"75\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"Spring Boot.InventoryManagementSystemApplication.executor\": \"Run\",\r\n    \"deletionFromPopupRequiresConfirmation\": \"false\",\r\n    \"git-widget-placeholder\": \"main\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"kotlin-language-version-configured\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/khyle/OneDrive/Documents/Inventory-Management-System/IMS_DB.sql\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"project.structure.last.edited\": \"Libraries\",\r\n    \"project.structure.proportion\": \"0.0\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"preferences.pluginManager\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"postgresql\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\" selected=\"Spring Boot.InventoryManagementSystemApplication\">\r\n    <configuration default=\"true\" type=\"PythonConfigurationType\" factoryName=\"Python\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <envs>\r\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\r\n      </envs>\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"SCRIPT_NAME\" value=\"\" />\r\n      <option name=\"PARAMETERS\" value=\"\" />\r\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\r\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\r\n      <option name=\"MODULE_MODE\" value=\"false\" />\r\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\r\n      <option name=\"INPUT_FILE\" value=\"\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"Tox\" factoryName=\"Tox\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"docs\" factoryName=\"Docutils task\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"docutils_input_file\" value=\"\" />\r\n      <option name=\"docutils_output_file\" value=\"\" />\r\n      <option name=\"docutils_params\" value=\"\" />\r\n      <option name=\"docutils_task\" value=\"\" />\r\n      <option name=\"docutils_open_in_browser\" value=\"false\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"docs\" factoryName=\"Sphinx task\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <option name=\"ENV_FILES\" value=\"\" />\r\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\r\n      <option name=\"PARENT_ENVS\" value=\"true\" />\r\n      <option name=\"SDK_HOME\" value=\"\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\r\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\r\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\r\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\r\n      <option name=\"docutils_input_file\" value=\"\" />\r\n      <option name=\"docutils_output_file\" value=\"\" />\r\n      <option name=\"docutils_params\" value=\"\" />\r\n      <option name=\"docutils_task\" value=\"\" />\r\n      <option name=\"docutils_open_in_browser\" value=\"false\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"IMS_DB.sql\" type=\"DatabaseScript\" editBeforeRun=\"true\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <script-file value=\"$PROJECT_DIR$/IMS_DB.sql\" />\r\n      <script-file value=\"$PROJECT_DIR$/IMS_DB.sql\" />\r\n      <script-mode>FILE</script-mode>\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration name=\"index.html\" type=\"JavascriptDebugType\" temporary=\"true\" nameIsGenerated=\"true\" uri=\"http://localhost:63342/Inventory-Management-System/inventory-management-system/src/main/resources/templates/index.html\" useBuiltInWebServerPort=\"true\">\r\n      <method v=\"2\" />\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"JetRunConfigurationType\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration default=\"true\" type=\"KotlinStandaloneScriptRunConfigurationType\">\r\n      <module name=\"Inventory-Management-System\" />\r\n      <option name=\"filePath\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <configuration name=\"InventoryManagementSystemApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" nameIsGenerated=\"true\">\r\n      <option name=\"FRAME_DEACTIVATION_UPDATE_POLICY\" value=\"UpdateClassesAndResources\" />\r\n      <module name=\"inventory-management-system\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"com.acds.inventory_management_system.InventoryManagementSystemApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"JavaScript Debug.index.html\" />\r\n        <item itemvalue=\"Database Script.IMS_DB.sql\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SharedIndexes\">\r\n    <attachedChunks>\r\n      <set>\r\n        <option value=\"bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79\" />\r\n        <option value=\"bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79\" />\r\n      </set>\r\n    </attachedChunks>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2475a27f-bdda-49ef-a23f-69087ddf9ada\" name=\"Changes\" comment=\"\" />\r\n      <created>1717562694331</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1717562694331</updated>\r\n      <workItem from=\"1717596448690\" duration=\"7127000\" />\r\n      <workItem from=\"1717603866167\" duration=\"15196000\" />\r\n      <workItem from=\"1717694302829\" duration=\"8675000\" />\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 063110f2fbb03c84c5cb3188e7311bbd59f94a9d)
++++ b/.idea/workspace.xml	(date 1717705145545)
+@@ -5,18 +5,7 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="2475a27f-bdda-49ef-a23f-69087ddf9ada" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_06_2024_9_58_pm_[Changes]/shelved.patch" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_06_06_2024_9_58_pm__Changes_.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/inventory-management-system/src/main/resources/static/scripts/inventory.js" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/static/scripts/inventory.js" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/src/main/resources/application.properties" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/src/main/resources/templates/inventory.html" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/application.properties" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/inventory-management-system/target/classes/templates/inventory.html" beforeDir="false" afterPath="$PROJECT_DIR$/inventory-management-system/target/classes/templates/inventory.html" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -47,42 +36,42 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "Application.InventoryManagementSystemApplication.executor": "Run",
+-    "JUnit.InventoryManagementSystemApplicationTests.executor": "Run",
+-    "JavaScript Debug.index.html.executor": "Run",
+-    "JavaScript Debug.inventory.html.executor": "Run",
+-    "RequestMappingsPanelOrder0": "0",
+-    "RequestMappingsPanelOrder1": "1",
+-    "RequestMappingsPanelWidth0": "75",
+-    "RequestMappingsPanelWidth1": "75",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "Spring Boot.InventoryManagementSystemApplication.executor": "Run",
+-    "deletionFromPopupRequiresConfirmation": "false",
+-    "git-widget-placeholder": "main",
+-    "ignore.virus.scanning.warn.message": "true",
+-    "kotlin-language-version-configured": "true",
+-    "last_opened_file_path": "C:/Users/khyle/OneDrive/Documents/Inventory-Management-System/IMS_DB.sql",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Libraries",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "preferences.pluginManager",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;Application.InventoryManagementSystemApplication.executor&quot;: &quot;Run&quot;,
++    &quot;JUnit.InventoryManagementSystemApplicationTests.executor&quot;: &quot;Run&quot;,
++    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
++    &quot;JavaScript Debug.inventory.html.executor&quot;: &quot;Run&quot;,
++    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
++    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
++    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
++    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;Spring Boot.InventoryManagementSystemApplication.executor&quot;: &quot;Run&quot;,
++    &quot;deletionFromPopupRequiresConfirmation&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
++    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
++    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/khyle/OneDrive/Documents/Inventory-Management-System/IMS_DB.sql&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   },
+-  "keyToStringList": {
+-    "DatabaseDriversLRU": [
+-      "postgresql"
++  &quot;keyToStringList&quot;: {
++    &quot;DatabaseDriversLRU&quot;: [
++      &quot;postgresql&quot;
+     ]
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager" selected="Spring Boot.InventoryManagementSystemApplication">
+     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+       <module name="Inventory-Management-System" />
+@@ -207,7 +196,8 @@
+       <updated>1717562694331</updated>
+       <workItem from="1717596448690" duration="7127000" />
+       <workItem from="1717603866167" duration="15196000" />
+-      <workItem from="1717694302829" duration="8675000" />
++      <workItem from="1717694302829" duration="9076000" />
++      <workItem from="1717704182599" duration="187000" />
+     </task>
+     <servers />
+   </component>
